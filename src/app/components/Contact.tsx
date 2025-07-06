@@ -89,7 +89,10 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className={`py-16 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a] text-[#ededed]' : 'bg-[#f8f8f8] text-[#1A1A1A]'}`}>
+    <section id="contact" className={`py-16 transition-colors duration-300`} style={{ 
+      backgroundColor: 'var(--section-bg-secondary)',
+      color: isDarkMode ? '#ededed' : '#1A1A1A' 
+    }}>
       <div className="max-w-xl mx-auto px-4">
         <h2 className="text-center text-2xl sm:text-3xl font-extrabold mb-4 tracking-tight">
           Projektanfrage
@@ -97,7 +100,10 @@ const Contact = () => {
         <p className={`text-center mb-8 max-w-lg mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
           Du hast ein Projekt oder brauchst technischen Support? Ich melde mich zeitnah und persönlich bei dir zurück.
         </p>
-        <form onSubmit={handleSubmit} className={`rounded-2xl shadow-lg p-8 flex flex-col gap-6 transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] border border-[#333]' : 'bg-white'}`}>
+        <form onSubmit={handleSubmit} className={`rounded-2xl shadow-lg p-8 flex flex-col gap-6 transition-colors duration-300`} style={{
+          backgroundColor: 'var(--card-bg)',
+          border: `1px solid var(--card-border)`
+        }}>
           <input
             type="text"
             name="name"

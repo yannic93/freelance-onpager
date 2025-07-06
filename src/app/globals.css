@@ -3,6 +3,11 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --section-bg-primary: #ffffff;
+  --section-bg-secondary: #f8f8f8;
+  --section-bg-tertiary: #ffffff;
+  --card-bg: #ffffff;
+  --card-border: #e5e5e5;
 }
 
 @theme inline {
@@ -23,6 +28,11 @@ html {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --section-bg-primary: #0a0a0a;
+    --section-bg-secondary: #111111;
+    --section-bg-tertiary: #1a1a1a;
+    --card-bg: #1a1a1a;
+    --card-border: #333333;
   }
 }
 
@@ -30,11 +40,21 @@ html {
 html[data-theme="dark"] {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --section-bg-primary: #0a0a0a;
+  --section-bg-secondary: #111111;
+  --section-bg-tertiary: #1a1a1a;
+  --card-bg: #1a1a1a;
+  --card-border: #333333;
 }
 
 html[data-theme="light"] {
   --background: #ffffff;
   --foreground: #171717;
+  --section-bg-primary: #ffffff;
+  --section-bg-secondary: #f8f8f8;
+  --section-bg-tertiary: #ffffff;
+  --card-bg: #ffffff;
+  --card-border: #e5e5e5;
 }
 
 body {

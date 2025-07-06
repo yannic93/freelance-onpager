@@ -65,7 +65,10 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className={`min-h-screen w-full flex flex-col items-center font-sans transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`} style={{ color: isDarkMode ? '#ededed' : '#1A1A1A' }}>
+    <div className={`min-h-screen w-full flex flex-col items-center font-sans transition-colors duration-300`} style={{ 
+      backgroundColor: 'var(--section-bg-primary)',
+      color: isDarkMode ? '#ededed' : '#1A1A1A' 
+    }}>
       {/* Glassmorphism Stickybar mit Name links */}
       <div className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none" style={{background: 'transparent'}}>
         {/* Desktop: normale Bar */}

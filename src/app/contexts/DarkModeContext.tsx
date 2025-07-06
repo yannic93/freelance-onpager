@@ -58,10 +58,20 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) 
       if (isDarkMode) {
         root.style.setProperty('--background', '#0a0a0a');
         root.style.setProperty('--foreground', '#ededed');
+        root.style.setProperty('--section-bg-primary', '#0a0a0a');
+        root.style.setProperty('--section-bg-secondary', '#111111');
+        root.style.setProperty('--section-bg-tertiary', '#1a1a1a');
+        root.style.setProperty('--card-bg', '#1a1a1a');
+        root.style.setProperty('--card-border', '#333333');
         root.setAttribute('data-theme', 'dark');
       } else {
         root.style.setProperty('--background', '#ffffff');
         root.style.setProperty('--foreground', '#171717');
+        root.style.setProperty('--section-bg-primary', '#ffffff');
+        root.style.setProperty('--section-bg-secondary', '#f8f8f8');
+        root.style.setProperty('--section-bg-tertiary', '#ffffff');
+        root.style.setProperty('--card-bg', '#ffffff');
+        root.style.setProperty('--card-border', '#e5e5e5');
         root.setAttribute('data-theme', 'light');
       }
     }

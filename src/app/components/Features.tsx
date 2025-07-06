@@ -47,7 +47,10 @@ const Features = () => {
   const { isDarkMode } = useDarkMode();
   
   return (
-    <section id="features" className={`py-16 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a] text-[#ededed]' : 'bg-[#f8f8f8] text-[#1A1A1A]'}`}>
+    <section id="features" className={`py-16 transition-colors duration-300`} style={{ 
+      backgroundColor: 'var(--section-bg-secondary)',
+      color: isDarkMode ? '#ededed' : '#1A1A1A' 
+    }}>
       <div className="max-w-3xl mx-auto px-4 text-center">
         <div className="flex flex-col items-center mb-10">
           <Workflow className="w-8 h-8 text-[#cda967] mb-2" />
@@ -61,7 +64,10 @@ const Features = () => {
       <div className="max-w-5xl mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {bentoFeatures.map((f, i) => (
-            <div key={i} className={`flex flex-col rounded-3xl shadow-lg p-8 min-h-[180px] transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] border border-[#333]' : 'bg-white'} ${f.className}`}>
+            <div key={i} className={`flex flex-col rounded-3xl shadow-lg p-8 min-h-[180px] transition-colors duration-300 ${f.className}`} style={{
+              backgroundColor: 'var(--card-bg)',
+              border: `1px solid var(--card-border)`
+            }}>
               {f.icon}
               <h3 className="text-lg font-semibold mt-4 mb-1">{f.title}</h3>
               <p className={`leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{f.desc}</p>

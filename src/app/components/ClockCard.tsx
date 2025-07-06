@@ -67,9 +67,10 @@ const ClockCard = () => {
         className={`transition-all duration-300 ease-in-out ${open ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'} origin-bottom-right`}
         style={{ display: open ? 'block' : 'none' }}
       >
-        <div className={`relative max-w-xs w-[90vw] sm:w-72 border border-[#cda967]/30 shadow-2xl rounded-2xl px-5 py-4 flex flex-col gap-2 items-start backdrop-blur-md transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a]/90' : 'bg-white/90'}`}
-          style={{ fontFamily: 'inherit' }}
-        >
+        <div className={`relative max-w-xs w-[90vw] sm:w-72 border border-[#cda967]/30 shadow-2xl rounded-2xl px-5 py-4 flex flex-col gap-2 items-start backdrop-blur-md transition-colors duration-300`} style={{
+          backgroundColor: `${isDarkMode ? 'var(--card-bg)' : 'var(--card-bg)'}/90`,
+          fontFamily: 'inherit'
+        }}>
           {/* Close Button */}
           <button
             aria-label="Zeitzonen-Vergleich schließen"

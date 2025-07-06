@@ -143,7 +143,10 @@ const Experience = () => {
   };
   
   return (
-    <section className={`py-20 px-4 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a] text-[#ededed]' : 'bg-white text-[#1A1A1A]'}`} id="experience">
+    <section className={`py-20 px-4 transition-colors duration-300`} style={{ 
+      backgroundColor: 'var(--section-bg-primary)',
+      color: isDarkMode ? '#ededed' : '#1A1A1A' 
+    }} id="experience">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-2 tracking-tight">Projektauszug & Erfahrung</h2>
         <p className={`text-center mb-10 text-base sm:text-lg ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Einige Stationen & Projekte aus den letzten Jahren</p>
@@ -195,7 +198,10 @@ const Experience = () => {
               )}
               <div className="flex flex-wrap gap-2 mt-2">
                 {exp.tags.map((tag, j) => (
-                  <span key={j} className={`border border-[#cda967]/30 text-xs font-medium px-3 py-1 rounded-full shadow-sm transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] text-[#ededed]' : 'bg-[#f8f8f8] text-[#1A1A1A]'}`}>
+                  <span key={j} className={`border border-[#cda967]/30 text-xs font-medium px-3 py-1 rounded-full shadow-sm transition-colors duration-300`} style={{
+                    backgroundColor: 'var(--card-bg)',
+                    color: isDarkMode ? '#ededed' : '#1A1A1A'
+                  }}>
                     {tag}
                   </span>
                 ))}
@@ -251,7 +257,10 @@ const Experience = () => {
               )}
               <div className="flex flex-wrap gap-2 mt-2">
                 {exp.tags.map((tag, j) => (
-                  <span key={j} className={`border border-[#cda967]/30 text-xs font-medium px-3 py-1 rounded-full shadow-sm transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] text-[#ededed]' : 'bg-[#f8f8f8] text-[#1A1A1A]'}`}>
+                  <span key={j} className={`border border-[#cda967]/30 text-xs font-medium px-3 py-1 rounded-full shadow-sm transition-colors duration-300`} style={{
+                    backgroundColor: 'var(--card-bg)',
+                    color: isDarkMode ? '#ededed' : '#1A1A1A'
+                  }}>
                     {tag}
                   </span>
                 ))}

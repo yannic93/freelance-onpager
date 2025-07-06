@@ -22,13 +22,19 @@ const Testimonials = () => {
   const { isDarkMode } = useDarkMode();
   
   return (
-    <section id="testimonials" className={`py-16 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a] text-[#ededed]' : 'bg-white text-[#1A1A1A]'}`}>
+    <section id="testimonials" className={`py-16 transition-colors duration-300`} style={{ 
+      backgroundColor: 'var(--section-bg-tertiary)',
+      color: isDarkMode ? '#ededed' : '#1A1A1A' 
+    }}>
       <h2 className="text-center text-2xl sm:text-3xl font-extrabold mb-10 tracking-tight">
         Was unsere Kunden sagen
       </h2>
       <div className="flex justify-center gap-8 flex-wrap max-w-5xl mx-auto px-4">
         {testimonials.map((t, i) => (
-          <div key={i} className={`rounded-2xl p-8 min-w-[280px] flex-1 max-w-[340px] text-center shadow-lg transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] border border-[#333]' : 'bg-[#f8f8f8]'}`}>
+          <div key={i} className={`rounded-2xl p-8 min-w-[280px] flex-1 max-w-[340px] text-center shadow-lg transition-colors duration-300`} style={{
+            backgroundColor: 'var(--card-bg)',
+            border: `1px solid var(--card-border)`
+          }}>
             <div className="w-14 h-14 rounded-full bg-[#cda967] text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
               {t.avatar}
             </div>

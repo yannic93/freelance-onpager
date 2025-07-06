@@ -7,7 +7,11 @@ const Footer = () => {
   const { isDarkMode } = useDarkMode();
   
   return (
-    <footer className={`border-t pt-8 pb-4 px-4 text-center mt-16 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a] border-[#333] text-[#ededed]' : 'bg-white border-[#eee] text-[#1A1A1A]'}`}>
+    <footer className={`border-t pt-8 pb-4 px-4 text-center mt-16 transition-colors duration-300`} style={{
+      backgroundColor: 'var(--section-bg-primary)',
+      borderColor: 'var(--card-border)',
+      color: isDarkMode ? '#ededed' : '#1A1A1A'
+    }}>
       <hr className={`max-w-2xl mx-auto mb-6 ${isDarkMode ? 'border-[#333]' : 'border-[#eee]'}`} />
       <div className="text-base sm:text-lg font-semibold mb-2">
         © 2025 Yannic Nandy – E-Commerce Freelancer für Shopify, Plentymarkets, Klaviyo &amp; n8n

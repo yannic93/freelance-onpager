@@ -7,7 +7,9 @@ export default function Impressum() {
   const { isDarkMode } = useDarkMode();
   
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
+    <div className={`min-h-screen transition-colors duration-300`} style={{
+      backgroundColor: 'var(--section-bg-primary)'
+    }}>
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="mb-8">
           <Link 
