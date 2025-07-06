@@ -201,27 +201,30 @@ const Hero = () => {
         </div>
       </div>
       {/* Hero Content */}
-      <div className="flex-1 flex flex-col justify-center items-center text-center px-4 pt-32 pb-16">
-        <div className="mb-6 flex justify-center">
-          <span className={`inline-flex items-center gap-2 rounded-md border border-[#cda967]/40 px-3 py-1 text-sm font-mono shadow-sm transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}>
+      <div className="flex-1 flex flex-col justify-center items-center text-center px-2 sm:px-4 pt-32 pb-16 w-full max-w-full overflow-x-hidden">
+        <div className="mb-4 sm:mb-6 flex justify-center w-full">
+          <span className={`inline-flex items-center gap-2 rounded-md border border-[#cda967]/40 px-2 sm:px-3 py-1 text-xs sm:text-sm font-mono shadow-sm transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}
+            style={{maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word'}}>
             <span className="inline-block w-2 h-2 rounded-full" style={{ background: '#FFD600' }}></span>
             Begrenzt verfügbar - gerne Anfragen
           </span>
         </div>
-        <h1 className={`text-4xl sm:text-6xl font-extrabold mb-6 max-w-3xl leading-tight transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`} style={{ fontFamily: 'inherit' }}>
+        <h1 className={`text-2xl xs:text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 sm:mb-6 max-w-full sm:max-w-3xl leading-tight transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
+          style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
           Freelancer für <span className="text-[#cda967]">skalierbare E-Commerce-Systeme</span>.
         </h1>
-        <p className={`text-lg sm:text-xl max-w-xl mx-auto mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`} style={{ fontFamily: 'inherit' }}>
+        <p className={`text-base sm:text-lg md:text-xl max-w-full sm:max-w-xl mx-auto mb-2 sm:mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
+          style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
           Shopify, Plentymarkets, Klaviyo & n8n – von Setup bis Automatisierung.
         </p>
         {/* Toolstack Logos Marquee */}
-        <div className="relative flex justify-center items-center mb-8 w-full" style={{ maxWidth: 480 }}>
+        <div className="relative flex justify-center items-center mb-6 sm:mb-8 w-full max-w-full overflow-x-hidden" style={{ maxWidth: 480 }}>
           {/* Gradient Overlays */}
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-12 z-10" style={{background: `linear-gradient(to right, ${isDarkMode ? '#0a0a0a' : '#fff'} 70%, transparent)`}} />
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-12 z-10" style={{background: `linear-gradient(to left, ${isDarkMode ? '#0a0a0a' : '#fff'} 70%, transparent)`}} />
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-8 sm:w-12 z-10" style={{background: `linear-gradient(to right, ${isDarkMode ? '#0a0a0a' : '#fff'} 70%, transparent)`}} />
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-8 sm:w-12 z-10" style={{background: `linear-gradient(to left, ${isDarkMode ? '#0a0a0a' : '#fff'} 70%, transparent)`}} />
           <div className="overflow-x-hidden w-full">
             <div
-              className="flex gap-10 py-2 whitespace-nowrap"
+              className="flex gap-6 sm:gap-10 py-2 whitespace-nowrap"
               ref={marqueeRef}
               style={{
                 display: 'inline-flex',
@@ -230,6 +233,7 @@ const Hero = () => {
                   : undefined,
                 minWidth: marqueeWidth ? marqueeWidth * 2 : undefined,
                 willChange: 'transform',
+                maxWidth: '100vw',
               }}
             >
               {toolLogos.map((logo, i) => (
@@ -237,9 +241,9 @@ const Hero = () => {
                   key={i}
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity duration-200"
+                  className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity duration-200 max-w-[80px] sm:max-w-[120px]"
                   draggable="false"
-                  style={{ userSelect: 'none' }}
+                  style={{ userSelect: 'none', maxWidth: '20vw' }}
                 />
               ))}
               {toolLogos.map((logo, i) => (
@@ -247,9 +251,9 @@ const Hero = () => {
                   key={toolLogos.length + i}
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity duration-200"
+                  className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity duration-200 max-w-[80px] sm:max-w-[120px]"
                   draggable="false"
-                  style={{ userSelect: 'none' }}
+                  style={{ userSelect: 'none', maxWidth: '20vw' }}
                 />
               ))}
             </div>
@@ -261,11 +265,11 @@ const Hero = () => {
             }
           `}</style>
         </div>
-        <div className="flex flex-wrap gap-4 justify-center">
+        <div className="flex flex-wrap gap-2 sm:gap-4 justify-center w-full max-w-full">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-[#cda967] px-7 py-3 text-lg font-semibold text-white shadow-md hover:bg-[#b8934e] transition-colors"
-            style={{ fontFamily: 'inherit' }}
+            className="inline-flex items-center gap-2 rounded-full bg-[#cda967] px-5 sm:px-7 py-2 sm:py-3 text-base sm:text-lg font-semibold text-white shadow-md hover:bg-[#b8934e] transition-colors max-w-full"
+            style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
             onClick={e => {
               e.preventDefault();
               const el = document.getElementById('contact');
@@ -279,8 +283,8 @@ const Hero = () => {
           </a>
           <a
             href="#experience"
-            className={`inline-flex items-center gap-2 rounded-full border border-[#cda967]/40 px-7 py-3 text-lg font-semibold shadow-md hover:bg-[#cda967]/10 hover:text-[#cda967] transition-colors ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}
-            style={{ fontFamily: 'inherit' }}
+            className={`inline-flex items-center gap-2 rounded-full border border-[#cda967]/40 px-5 sm:px-7 py-2 sm:py-3 text-base sm:text-lg font-semibold shadow-md hover:bg-[#cda967]/10 hover:text-[#cda967] transition-colors max-w-full ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}
+            style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
             onClick={e => {
               e.preventDefault();
               const el = document.getElementById('experience');
