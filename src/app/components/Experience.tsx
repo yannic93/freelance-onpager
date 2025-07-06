@@ -164,12 +164,12 @@ const Experience = () => {
                   {Array.isArray(exp.logo) && (
                     <span className="flex flex-row items-center gap-2 mb-1">
                       {exp.logo.map((src, idx) => (
-                        <img key={idx} src={src} alt="Logo" className="h-5 w-auto" style={{height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain'}} />
+                        <img key={idx} src={src} alt="Logo" className={`h-5 w-auto ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain'}} />
                       ))}
                     </span>
                   )}
                   {!Array.isArray(exp.logo) && exp.logo && (
-                    <img src={exp.logo} alt="Logo" className="h-6 w-auto mb-1" style={{height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain'}} />
+                    <img src={exp.logo} alt="Logo" className={`h-6 w-auto mb-1 ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain'}} />
                   )}
                   {exp.role && <span className={`font-bold text-lg mb-0.5 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>{exp.role}</span>}
                   <span className={`text-base font-normal block w-full ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{exp.company}</span>
@@ -220,12 +220,12 @@ const Experience = () => {
                   {Array.isArray(exp.logo) && (
                     <span className="flex flex-row items-center gap-2 mb-1">
                       {exp.logo.map((src, idx) => (
-                        <img key={idx} src={src} alt="Logo" className="h-5 w-auto" style={{height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain'}} />
+                        <img key={idx} src={src} alt="Logo" className={`h-5 w-auto ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain'}} />
                       ))}
                     </span>
                   )}
                   {!Array.isArray(exp.logo) && exp.logo && (
-                    <img src={exp.logo} alt="Logo" className="h-6 w-auto mb-1" style={{height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain'}} />
+                    <img src={exp.logo} alt="Logo" className={`h-6 w-auto mb-1 ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain'}} />
                   )}
                   {exp.role && <span className={`font-bold text-lg mb-0.5 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>{exp.role}</span>}
                   <span className={`text-base font-normal block w-full ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{exp.company}</span>
