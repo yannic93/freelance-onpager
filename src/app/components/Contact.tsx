@@ -76,7 +76,7 @@ const Contact = () => {
           message: data.error || "Ein Fehler ist aufgetreten",
         });
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus({
         type: "error",
         message: "Verbindungsfehler. Bitte versuche es später erneut.",

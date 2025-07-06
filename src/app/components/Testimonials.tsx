@@ -25,7 +25,7 @@ const Testimonials = () => (
         <div key={i} style={{ background: "#f8f8f8", borderRadius: 16, padding: "2rem 1.5rem", minWidth: 220, flex: 1, maxWidth: 340, textAlign: "center", boxShadow: "0 2px 8px rgba(205,169,103,0.06)" }}>
           <div style={{ width: 56, height: 56, borderRadius: "50%", background: "#cda967", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, fontWeight: 700, margin: "0 auto 1rem auto" }}>{t.avatar}</div>
           <p style={{ fontSize: "1.05rem", fontStyle: "italic", marginBottom: 12 }}>
-            "{t.text}"
+            &ldquo;{t.text}&rdquo;
           </p>
           <div style={{ fontWeight: 700 }}>{t.name}</div>
           <div style={{ fontSize: "0.95rem", color: "#888" }}>{t.role}</div>
