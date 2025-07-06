@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Briefcase, Rocket } from "lucide-react";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 const workExperience = [
   {
@@ -122,101 +123,105 @@ const projectExperience = [
   },
 ];
 
-const Experience = () => (
-  <section className="bg-white text-[#1A1A1A] py-20 px-4" id="experience">
-    <div className="max-w-2xl mx-auto">
-      <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-2 tracking-tight">Projektauszug & Erfahrung</h2>
-      <p className="text-center text-gray-500 mb-10 text-base sm:text-lg">Einige Stationen & Projekte aus den letzten Jahren</p>
-      {/* Projekterfahrung */}
-      <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><Rocket size={22} className="text-[#cda967]" /> Projekterfahrung (Auszug)</h3>
-      <ol className="relative border-l-2 border-[#cda967]/30 ml-2 mb-12">
-        {projectExperience.map((exp, i) => (
-          <motion.li
-            key={i}
-            className="mb-12 ml-10 relative"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, delay: i * 0.05, ease: 'easeOut' }}
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-              <div className="font-bold text-[#1A1A1A] text-lg mb-1 sm:mb-0 flex flex-col items-start">
-                {Array.isArray(exp.logo) && (
-                  <span className="flex flex-row items-center gap-2 mb-1">
-                    {exp.logo.map((src, idx) => (
-                      <img key={idx} src={src} alt="Logo" className="h-5 w-auto" style={{height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain'}} />
-                    ))}
-                  </span>
-                )}
-                {!Array.isArray(exp.logo) && exp.logo && (
-                  <img src={exp.logo} alt="Logo" className="h-6 w-auto mb-1" style={{height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain'}} />
-                )}
-                {exp.role && <span className="font-bold text-[#1A1A1A] text-lg mb-0.5">{exp.role}</span>}
-                <span className="text-base text-gray-500 font-normal block w-full">{exp.company}</span>
+const Experience = () => {
+  const { isDarkMode } = useDarkMode();
+  
+  return (
+    <section className={`py-20 px-4 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a] text-[#ededed]' : 'bg-white text-[#1A1A1A]'}`} id="experience">
+      <div className="max-w-2xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-2 tracking-tight">Projektauszug & Erfahrung</h2>
+        <p className={`text-center mb-10 text-base sm:text-lg ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Einige Stationen & Projekte aus den letzten Jahren</p>
+        {/* Projekterfahrung */}
+        <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><Rocket size={22} className="text-[#cda967]" /> Projekterfahrung (Auszug)</h3>
+        <ol className="relative border-l-2 border-[#cda967]/30 ml-2 mb-12">
+          {projectExperience.map((exp, i) => (
+            <motion.li
+              key={i}
+              className="mb-12 ml-10 relative"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, delay: i * 0.05, ease: 'easeOut' }}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div className={`font-bold text-lg mb-1 sm:mb-0 flex flex-col items-start ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>
+                  {Array.isArray(exp.logo) && (
+                    <span className="flex flex-row items-center gap-2 mb-1">
+                      {exp.logo.map((src, idx) => (
+                        <img key={idx} src={src} alt="Logo" className="h-5 w-auto" style={{height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain'}} />
+                      ))}
+                    </span>
+                  )}
+                  {!Array.isArray(exp.logo) && exp.logo && (
+                    <img src={exp.logo} alt="Logo" className="h-6 w-auto mb-1" style={{height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain'}} />
+                  )}
+                  {exp.role && <span className={`font-bold text-lg mb-0.5 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>{exp.role}</span>}
+                  <span className={`text-base font-normal block w-full ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{exp.company}</span>
+                </div>
+                <div className={`text-sm font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{exp.period}</div>
               </div>
-              <div className="text-sm text-gray-400 font-mono">{exp.period}</div>
-            </div>
-            <ul className="text-gray-600 text-sm mb-2 list-disc ml-5">
-              {exp.description.map((d, j) => (
-                <li key={j}>{d}</li>
-              ))}
-            </ul>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {exp.tags.map((tag, j) => (
-                <span key={j} className="bg-[#f8f8f8] border border-[#cda967]/30 text-[#1A1A1A] text-xs font-medium px-3 py-1 rounded-full shadow-sm">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </motion.li>
-        ))}
-      </ol>
-      {/* Berufserfahrung */}
-      <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><Briefcase size={22} className="text-[#cda967]" /> Berufserfahrung</h3>
-      <ol className="relative border-l-2 border-[#cda967]/30 ml-2">
-        {workExperience.map((exp, i) => (
-          <motion.li
-            key={i}
-            className="mb-12 ml-10 relative"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, delay: i * 0.05, ease: 'easeOut' }}
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-              <div className="font-bold text-[#1A1A1A] text-lg mb-1 sm:mb-0 flex flex-col items-start">
-                {Array.isArray(exp.logo) && (
-                  <span className="flex flex-row items-center gap-2 mb-1">
-                    {exp.logo.map((src, idx) => (
-                      <img key={idx} src={src} alt="Logo" className="h-5 w-auto" style={{height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain'}} />
-                    ))}
+              <ul className={`text-sm mb-2 list-disc ml-5 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                {exp.description.map((d, j) => (
+                  <li key={j}>{d}</li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {exp.tags.map((tag, j) => (
+                  <span key={j} className={`border border-[#cda967]/30 text-xs font-medium px-3 py-1 rounded-full shadow-sm transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] text-[#ededed]' : 'bg-[#f8f8f8] text-[#1A1A1A]'}`}>
+                    {tag}
                   </span>
-                )}
-                {!Array.isArray(exp.logo) && exp.logo && (
-                  <img src={exp.logo} alt="Logo" className="h-6 w-auto mb-1" style={{height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain'}} />
-                )}
-                {exp.role && <span className="font-bold text-[#1A1A1A] text-lg mb-0.5">{exp.role}</span>}
-                <span className="text-base text-gray-500 font-normal block w-full">{exp.company}</span>
+                ))}
               </div>
-              <div className="text-sm text-gray-400 font-mono">{exp.period}</div>
-            </div>
-            <ul className="text-gray-600 text-sm mb-2 list-disc ml-5">
-              {exp.description.map((d, j) => (
-                <li key={j}>{d}</li>
-              ))}
-            </ul>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {exp.tags.map((tag, j) => (
-                <span key={j} className="bg-[#f8f8f8] border border-[#cda967]/30 text-[#1A1A1A] text-xs font-medium px-3 py-1 rounded-full shadow-sm">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </motion.li>
-        ))}
-      </ol>
-    </div>
-  </section>
-);
+            </motion.li>
+          ))}
+        </ol>
+        {/* Berufserfahrung */}
+        <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><Briefcase size={22} className="text-[#cda967]" /> Berufserfahrung</h3>
+        <ol className="relative border-l-2 border-[#cda967]/30 ml-2">
+          {workExperience.map((exp, i) => (
+            <motion.li
+              key={i}
+              className="mb-12 ml-10 relative"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, delay: i * 0.05, ease: 'easeOut' }}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div className={`font-bold text-lg mb-1 sm:mb-0 flex flex-col items-start ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>
+                  {Array.isArray(exp.logo) && (
+                    <span className="flex flex-row items-center gap-2 mb-1">
+                      {exp.logo.map((src, idx) => (
+                        <img key={idx} src={src} alt="Logo" className="h-5 w-auto" style={{height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain'}} />
+                      ))}
+                    </span>
+                  )}
+                  {!Array.isArray(exp.logo) && exp.logo && (
+                    <img src={exp.logo} alt="Logo" className="h-6 w-auto mb-1" style={{height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain'}} />
+                  )}
+                  {exp.role && <span className={`font-bold text-lg mb-0.5 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>{exp.role}</span>}
+                  <span className={`text-base font-normal block w-full ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{exp.company}</span>
+                </div>
+                <div className={`text-sm font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{exp.period}</div>
+              </div>
+              <ul className={`text-sm mb-2 list-disc ml-5 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                {exp.description.map((d, j) => (
+                  <li key={j}>{d}</li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {exp.tags.map((tag, j) => (
+                  <span key={j} className={`border border-[#cda967]/30 text-xs font-medium px-3 py-1 rounded-full shadow-sm transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] text-[#ededed]' : 'bg-[#f8f8f8] text-[#1A1A1A]'}`}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+};
 
 export default Experience; 

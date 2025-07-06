@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 function getTimeInZone(timeZone: string) {
   return new Date(
@@ -20,6 +21,7 @@ const ClockCard = () => {
   const [berlinTime, setBerlinTime] = useState<Date | null>(null);
   const [diff, setDiff] = useState<number | null>(null);
   const [open, setOpen] = useState<boolean>(true);
+  const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
     // Mobile: standardmäßig eingeklappt
@@ -54,7 +56,7 @@ const ClockCard = () => {
         <button
           aria-label="Zeitzonen-Vergleich öffnen"
           onClick={() => setOpen(true)}
-          className="rounded-full bg-white shadow-2xl border border-[#cda967]/30 w-14 h-14 flex items-center justify-center hover:bg-[#f5efe6] transition-colors duration-200 focus:outline-none"
+          className={`rounded-full shadow-2xl border border-[#cda967]/30 w-14 h-14 flex items-center justify-center transition-colors duration-200 focus:outline-none ${isDarkMode ? 'bg-[#1a1a1a] hover:bg-[#2a2a2a]' : 'bg-white hover:bg-[#f5efe6]'}`}
           style={{ fontFamily: 'inherit' }}
         >
           <svg className="w-7 h-7 text-[#cda967]" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
@@ -65,30 +67,30 @@ const ClockCard = () => {
         className={`transition-all duration-300 ease-in-out ${open ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'} origin-bottom-right`}
         style={{ display: open ? 'block' : 'none' }}
       >
-        <div className="relative max-w-xs w-[90vw] sm:w-72 bg-white/90 border border-[#cda967]/30 shadow-2xl rounded-2xl px-5 py-4 flex flex-col gap-2 items-start backdrop-blur-md"
+        <div className={`relative max-w-xs w-[90vw] sm:w-72 border border-[#cda967]/30 shadow-2xl rounded-2xl px-5 py-4 flex flex-col gap-2 items-start backdrop-blur-md transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a]/90' : 'bg-white/90'}`}
           style={{ fontFamily: 'inherit' }}
         >
           {/* Close Button */}
           <button
             aria-label="Zeitzonen-Vergleich schließen"
             onClick={() => setOpen(false)}
-            className="absolute top-2 right-2 p-1 rounded-full hover:bg-[#f5efe6] transition-colors"
+            className={`absolute top-2 right-2 p-1 rounded-full transition-colors ${isDarkMode ? 'hover:bg-[#2a2a2a]' : 'hover:bg-[#f5efe6]'}`}
           >
             <svg className="w-5 h-5 text-[#cda967]" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M6 18L18 6"/></svg>
           </button>
           <div className="text-xs font-semibold text-[#cda967] mb-1">Zeitzonen-Vergleich</div>
           <div className="w-full">
             <div className="flex items-center w-full text-sm mb-1">
-              <span className="font-medium min-w-[80px] text-[#1A1A1A]">Deine Zeit</span>
+              <span className={`font-medium min-w-[80px] ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>Deine Zeit</span>
               <span className="flex-1 flex justify-end">
-                <span className="font-mono tabular-nums text-right w-[90px] block text-[#1A1A1A]">{userTime ? format(userTime) : "--:--:--"}</span>
+                <span className={`font-mono tabular-nums text-right w-[90px] block ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>{userTime ? format(userTime) : "--:--:--"}</span>
               </span>
               <span className="text-[11px] text-gray-400 font-normal ml-2 whitespace-nowrap">{userTz}</span>
             </div>
             <div className="flex items-center w-full text-sm">
-              <span className="font-medium min-w-[80px] text-[#1A1A1A]">Yannic</span>
+              <span className={`font-medium min-w-[80px] ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>Yannic</span>
               <span className="flex-1 flex justify-end">
-                <span className="font-mono tabular-nums text-right w-[90px] block text-[#1A1A1A]">{berlinTime ? format(berlinTime) : "--:--:--"}</span>
+                <span className={`font-mono tabular-nums text-right w-[90px] block ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>{berlinTime ? format(berlinTime) : "--:--:--"}</span>
               </span>
               <span className="text-[11px] text-gray-400 font-normal ml-2 whitespace-nowrap">Europe/Freiburg</span>
             </div>

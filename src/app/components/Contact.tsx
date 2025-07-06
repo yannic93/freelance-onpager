@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ const Contact = () => {
     message: string;
   }>({ type: null, message: "" });
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const { isDarkMode } = useDarkMode();
 
   const serviceOptions = [
     "Shopify Setup / Support",
@@ -87,15 +89,15 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="bg-[#f8f8f8] py-16 text-[#1A1A1A]">
+    <section id="contact" className={`py-16 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a] text-[#ededed]' : 'bg-[#f8f8f8] text-[#1A1A1A]'}`}>
       <div className="max-w-xl mx-auto px-4">
         <h2 className="text-center text-2xl sm:text-3xl font-extrabold mb-4 tracking-tight">
           Projektanfrage
         </h2>
-        <p className="text-center text-gray-600 mb-8 max-w-lg mx-auto">
+        <p className={`text-center mb-8 max-w-lg mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
           Du hast ein Projekt oder brauchst technischen Support? Ich melde mich zeitnah und persönlich bei dir zurück.
         </p>
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg p-8 flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className={`rounded-2xl shadow-lg p-8 flex flex-col gap-6 transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] border border-[#333]' : 'bg-white'}`}>
           <input
             type="text"
             name="name"
@@ -104,7 +106,7 @@ const Contact = () => {
             onChange={handleInputChange}
             required
             disabled={isSubmitting}
-            className="px-4 py-3 rounded-lg border border-[#cda967] text-base focus:outline-none focus:ring-2 focus:ring-[#cda967]/40 transition disabled:opacity-50"
+            className={`px-4 py-3 rounded-lg border border-[#cda967] text-base focus:outline-none focus:ring-2 focus:ring-[#cda967]/40 transition disabled:opacity-50 ${isDarkMode ? 'bg-[#2a2a2a] text-[#ededed] placeholder-gray-400' : 'bg-white text-[#1A1A1A]'}`}
           />
           <input
             type="email"
@@ -114,7 +116,7 @@ const Contact = () => {
             onChange={handleInputChange}
             required
             disabled={isSubmitting}
-            className="px-4 py-3 rounded-lg border border-[#cda967] text-base focus:outline-none focus:ring-2 focus:ring-[#cda967]/40 transition disabled:opacity-50"
+            className={`px-4 py-3 rounded-lg border border-[#cda967] text-base focus:outline-none focus:ring-2 focus:ring-[#cda967]/40 transition disabled:opacity-50 ${isDarkMode ? 'bg-[#2a2a2a] text-[#ededed] placeholder-gray-400' : 'bg-white text-[#1A1A1A]'}`}
           />
           
           {/* Multi-Select Services */}
@@ -124,9 +126,9 @@ const Contact = () => {
                 type="button"
                 onClick={() => setIsServicesOpen(!isServicesOpen)}
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 rounded-lg border border-[#cda967] text-base focus:outline-none focus:ring-2 focus:ring-[#cda967]/40 transition disabled:opacity-50 bg-white text-left flex justify-between items-center"
+                className={`w-full px-4 py-3 rounded-lg border border-[#cda967] text-base focus:outline-none focus:ring-2 focus:ring-[#cda967]/40 transition disabled:opacity-50 text-left flex justify-between items-center ${isDarkMode ? 'bg-[#2a2a2a] text-[#ededed]' : 'bg-white text-[#1A1A1A]'}`}
               >
-                <span className={formData.services.length === 0 ? "text-gray-500" : "text-gray-900"}>
+                <span className={formData.services.length === 0 ? (isDarkMode ? "text-gray-400" : "text-gray-500") : (isDarkMode ? "text-[#ededed]" : "text-gray-900")}>
                   {formData.services.length === 0
                     ? "Thema auswählen"
                     : `${formData.services.length} ausgewählt`}
@@ -142,11 +144,11 @@ const Contact = () => {
               </button>
               
               {isServicesOpen && (
-                <div className="absolute z-10 w-full mt-1 bg-white border border-[#cda967] rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                <div className={`absolute z-10 w-full mt-1 border border-[#cda967] rounded-lg shadow-lg max-h-60 overflow-y-auto transition-colors duration-300 ${isDarkMode ? 'bg-[#2a2a2a]' : 'bg-white'}`}>
                   {serviceOptions.map((service) => (
                     <label
                       key={service}
-                      className="flex items-center px-4 py-3 hover:bg-[#f5efe6] cursor-pointer border-b border-gray-100 last:border-b-0"
+                      className={`flex items-center px-4 py-3 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors duration-200 ${isDarkMode ? 'hover:bg-[#3a3a3a] border-gray-700' : 'hover:bg-[#f5efe6]'}`}
                     >
                       <input
                         type="checkbox"
@@ -155,7 +157,7 @@ const Contact = () => {
                         disabled={isSubmitting}
                         className="w-4 h-4 text-[#cda967] border-[#cda967] rounded focus:ring-[#cda967]/40"
                       />
-                      <span className="ml-3 text-sm text-gray-700">{service}</span>
+                      <span className={`ml-3 text-sm ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>{service}</span>
                     </label>
                   ))}
                 </div>
@@ -193,27 +195,27 @@ const Contact = () => {
             required
             rows={4}
             disabled={isSubmitting}
-            className="px-4 py-3 rounded-lg border border-[#cda967] text-base focus:outline-none focus:ring-2 focus:ring-[#cda967]/40 transition disabled:opacity-50"
+            className={`px-4 py-3 rounded-lg border border-[#cda967] text-base focus:outline-none focus:ring-2 focus:ring-[#cda967]/40 transition disabled:opacity-50 ${isDarkMode ? 'bg-[#2a2a2a] text-[#ededed] placeholder-gray-400' : 'bg-white text-[#1A1A1A]'}`}
           />
           
           {submitStatus.type && (
             <div
-              className={`p-4 rounded-lg text-sm font-medium ${
+              className={`p-4 rounded-lg text-sm ${
                 submitStatus.type === "success"
-                  ? "bg-green-100 text-green-800 border border-green-200"
-                  : "bg-red-100 text-red-800 border border-red-200"
+                  ? "bg-green-50 text-green-800 border border-green-200"
+                  : "bg-red-50 text-red-800 border border-red-200"
               }`}
             >
               {submitStatus.message}
             </div>
           )}
-
+          
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-[#cda967] text-white rounded-lg py-3 font-semibold text-lg shadow-md hover:bg-[#b8934e] transition-colors mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-[#cda967] hover:bg-[#b8934e] text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isSubmitting ? "Wird gesendet..." : "Absenden"}
+            {isSubmitting ? "Wird gesendet..." : "Nachricht senden"}
           </button>
         </form>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">

@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
-import { Zap, Settings, Brain, Puzzle, Bot, BarChart } from "lucide-react";
+import { Zap, Settings, Brain, Puzzle, Bot, BarChart, Workflow } from "lucide-react";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 const bentoFeatures = [
   {
@@ -40,30 +43,34 @@ const bentoFeatures = [
   },
 ];
 
-const Features = () => (
-  <section id="features" className="bg-[#f8f8f8] py-16 text-[#1A1A1A]">
-    <div className="max-w-3xl mx-auto px-4 text-center">
-      <div className="flex flex-col items-center mb-10">
-        <span className="text-3xl mb-2">🧠</span>
-        <h2 className="text-2xl sm:text-3xl font-extrabold mb-4 tracking-tight">Skalier dein E-Commerce Business – mit klaren Prozessen und sauberen Datenflüssen.</h2>
-        <p className="text-lg sm:text-xl text-[#1A1A1A] mb-6 font-normal">
-          Ich helfe dir, dein E-Commerce-Fundament zu stabilisieren – mit strukturierter Systemarchitektur, sauberen Datenflüssen, smarten Workflows und KI-gestützter Prozessautomatisierung.
-        </p>
-        <div className="w-16 h-1 bg-[#cda967] rounded-full opacity-60 mb-2" />
+const Features = () => {
+  const { isDarkMode } = useDarkMode();
+  
+  return (
+    <section id="features" className={`py-16 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a] text-[#ededed]' : 'bg-[#f8f8f8] text-[#1A1A1A]'}`}>
+      <div className="max-w-3xl mx-auto px-4 text-center">
+        <div className="flex flex-col items-center mb-10">
+          <Workflow className="w-8 h-8 text-[#cda967] mb-2" />
+          <h2 className="text-2xl sm:text-3xl font-extrabold mb-4 tracking-tight">Skalier dein E-Commerce Business – mit klaren Prozessen und sauberen Datenflüssen.</h2>
+          <p className={`text-lg sm:text-xl mb-6 font-normal ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>
+            Ich helfe dir, dein E-Commerce-Fundament zu stabilisieren – mit strukturierter Systemarchitektur, sauberen Datenflüssen, smarten Workflows und KI-gestützter Prozessautomatisierung.
+          </p>
+          <div className="w-16 h-1 bg-[#cda967] rounded-full opacity-60 mb-2" />
+        </div>
       </div>
-    </div>
-    <div className="max-w-5xl mx-auto px-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {bentoFeatures.map((f, i) => (
-          <div key={i} className={"flex flex-col bg-white rounded-3xl shadow-lg p-8 min-h-[180px] " + f.className}>
-            {f.icon}
-            <h3 className="text-lg font-semibold mt-4 mb-1">{f.title}</h3>
-            <p className="text-gray-600 leading-relaxed">{f.desc}</p>
-          </div>
-        ))}
+      <div className="max-w-5xl mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {bentoFeatures.map((f, i) => (
+            <div key={i} className={`flex flex-col rounded-3xl shadow-lg p-8 min-h-[180px] transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] border border-[#333]' : 'bg-white'} ${f.className}`}>
+              {f.icon}
+              <h3 className="text-lg font-semibold mt-4 mb-1">{f.title}</h3>
+              <p className={`leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{f.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Features; 

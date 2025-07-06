@@ -1,8 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 export default function Impressum() {
+  const { isDarkMode } = useDarkMode();
+  
   return (
-    <div className="min-h-screen bg-white">
+    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'}`}>
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="mb-8">
           <Link 
@@ -13,12 +18,12 @@ export default function Impressum() {
           </Link>
         </div>
         
-        <h1 className="text-3xl font-bold text-[#1A1A1A] mb-8">Impressum</h1>
+        <h1 className={`text-3xl font-bold mb-8 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>Impressum</h1>
         
         <div className="prose prose-lg max-w-none">
           <section className="mb-8">
-            <h2 className="text-xl font-semibold text-[#1A1A1A] mb-4">Angaben gemäß § 5 TMG</h2>
-            <div className="space-y-2 text-gray-700">
+            <h2 className={`text-xl font-semibold mb-4 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>Angaben gemäß § 5 TMG</h2>
+            <div className={`space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               <p><strong>Yannic Nandy</strong></p>
               <p>Neunlindenstr. 28</p>
               <p>79106 Freiburg i. Br.</p>
@@ -27,18 +32,16 @@ export default function Impressum() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-xl font-semibold text-[#1A1A1A] mb-4">Kontakt</h2>
-            <div className="space-y-2 text-gray-700">
+            <h2 className={`text-xl font-semibold mb-4 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>Kontakt</h2>
+            <div className={`space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               <p><strong>E-Mail:</strong> info@yannicnandy.com</p>
               <p><strong>Telefon:</strong> +49 (0) 176 / 48291993</p>
             </div>
           </section>
 
-
-
           <section className="mb-8">
-            <h2 className="text-xl font-semibold text-[#1A1A1A] mb-4">Redaktionell verantwortlich</h2>
-            <div className="space-y-2 text-gray-700">
+            <h2 className={`text-xl font-semibold mb-4 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>Redaktionell verantwortlich</h2>
+            <div className={`space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>Yannic Nandy</p>
               <p>Neunlindenstr. 28</p>
               <p>79106 Freiburg i. Br.</p>
@@ -46,8 +49,8 @@ export default function Impressum() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-xl font-semibold text-[#1A1A1A] mb-4">EU-Streitschlichtung</h2>
-            <div className="space-y-2 text-gray-700">
+            <h2 className={`text-xl font-semibold mb-4 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>EU-Streitschlichtung</h2>
+            <div className={`space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: 
                 <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" className="text-[#cda967] hover:underline ml-1">
                   https://ec.europa.eu/consumers/odr/
@@ -58,16 +61,16 @@ export default function Impressum() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-xl font-semibold text-[#1A1A1A] mb-4">Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
-            <div className="space-y-2 text-gray-700">
+            <h2 className={`text-xl font-semibold mb-4 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
+            <div className={`space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer 
                 Verbraucherschlichtungsstelle teilzunehmen.</p>
             </div>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-xl font-semibold text-[#1A1A1A] mb-4">Haftung für Inhalte</h2>
-            <div className="space-y-2 text-gray-700">
+            <h2 className={`text-xl font-semibold mb-4 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>Haftung für Inhalte</h2>
+            <div className={`space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den 
                 allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht 
                 unter der Verpflichtung, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach 
@@ -80,8 +83,8 @@ export default function Impressum() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-xl font-semibold text-[#1A1A1A] mb-4">Haftung für Links</h2>
-            <div className="space-y-2 text-gray-700">
+            <h2 className={`text-xl font-semibold mb-4 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>Haftung für Links</h2>
+            <div className={`space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. 
                 Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der 
                 verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die 
@@ -94,8 +97,8 @@ export default function Impressum() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-xl font-semibold text-[#1A1A1A] mb-4">Urheberrecht</h2>
-            <div className="space-y-2 text-gray-700">
+            <h2 className={`text-xl font-semibold mb-4 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>Urheberrecht</h2>
+            <div className={`space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen 
                 Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der 
                 Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. 

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 const menuLinks = [
   { label: "Leistungen", href: "#features" },
@@ -10,24 +11,10 @@ const menuLinks = [
 
 const Hero = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
   const marqueeRef = useRef<HTMLDivElement>(null);
   const [marqueeWidth, setMarqueeWidth] = useState(0);
   const [activeSection, setActiveSection] = useState<string>("");
-
-  // Dark Mode Toggle Handler
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    // Update CSS variables
-    const root = document.documentElement;
-    if (!isDarkMode) {
-      root.style.setProperty('--background', '#0a0a0a');
-      root.style.setProperty('--foreground', '#ededed');
-    } else {
-      root.style.setProperty('--background', '#ffffff');
-      root.style.setProperty('--foreground', '#171717');
-    }
-  };
 
   // Tool logos based on dark mode
   const toolLogos = [

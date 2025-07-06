@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 const testimonials = [
   {
@@ -15,24 +18,30 @@ const testimonials = [
   },
 ];
 
-const Testimonials = () => (
-  <section id="testimonials" style={{ background: "#fff", color: "#1A1A1A", padding: "4rem 0" }}>
-    <h2 style={{ textAlign: "center", fontSize: "2rem", fontWeight: 800, marginBottom: "2.5rem" }}>
-      Was unsere Kunden sagen
-    </h2>
-    <div style={{ display: "flex", justifyContent: "center", gap: "2rem", flexWrap: "wrap", maxWidth: 900, margin: "0 auto" }}>
-      {testimonials.map((t, i) => (
-        <div key={i} style={{ background: "#f8f8f8", borderRadius: 16, padding: "2rem 1.5rem", minWidth: 220, flex: 1, maxWidth: 340, textAlign: "center", boxShadow: "0 2px 8px rgba(205,169,103,0.06)" }}>
-          <div style={{ width: 56, height: 56, borderRadius: "50%", background: "#cda967", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, fontWeight: 700, margin: "0 auto 1rem auto" }}>{t.avatar}</div>
-          <p style={{ fontSize: "1.05rem", fontStyle: "italic", marginBottom: 12 }}>
-            &ldquo;{t.text}&rdquo;
-          </p>
-          <div style={{ fontWeight: 700 }}>{t.name}</div>
-          <div style={{ fontSize: "0.95rem", color: "#888" }}>{t.role}</div>
-        </div>
-      ))}
-    </div>
-  </section>
-);
+const Testimonials = () => {
+  const { isDarkMode } = useDarkMode();
+  
+  return (
+    <section id="testimonials" className={`py-16 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a] text-[#ededed]' : 'bg-white text-[#1A1A1A]'}`}>
+      <h2 className="text-center text-2xl sm:text-3xl font-extrabold mb-10 tracking-tight">
+        Was unsere Kunden sagen
+      </h2>
+      <div className="flex justify-center gap-8 flex-wrap max-w-5xl mx-auto px-4">
+        {testimonials.map((t, i) => (
+          <div key={i} className={`rounded-2xl p-8 min-w-[280px] flex-1 max-w-[340px] text-center shadow-lg transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] border border-[#333]' : 'bg-[#f8f8f8]'}`}>
+            <div className="w-14 h-14 rounded-full bg-[#cda967] text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              {t.avatar}
+            </div>
+            <p className="text-lg italic mb-3 leading-relaxed">
+              &ldquo;{t.text}&rdquo;
+            </p>
+            <div className="font-bold text-lg">{t.name}</div>
+            <div className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.role}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
 
 export default Testimonials; 
