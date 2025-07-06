@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Briefcase, Rocket } from "lucide-react";
+import { Briefcase, Rocket, ChevronDown, ChevronUp } from "lucide-react";
 import { useDarkMode } from "../contexts/DarkModeContext";
 
 const workExperience = [
@@ -125,10 +125,26 @@ const projectExperience = [
 
 const Experience = () => {
   const { isDarkMode } = useDarkMode();
+  const [expandedProjects, setExpandedProjects] = useState<{ [key: number]: boolean }>({});
+  const [expandedWork, setExpandedWork] = useState<{ [key: number]: boolean }>({});
+  
+  const toggleProject = (index: number) => {
+    setExpandedProjects(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
+
+  const toggleWork = (index: number) => {
+    setExpandedWork(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
   
   return (
     <section className={`py-20 px-4 transition-colors duration-300 ${isDarkMode ? 'bg-[#0a0a0a] text-[#ededed]' : 'bg-white text-[#1A1A1A]'}`} id="experience">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-2 tracking-tight">Projektauszug & Erfahrung</h2>
         <p className={`text-center mb-10 text-base sm:text-lg ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Einige Stationen & Projekte aus den letzten Jahren</p>
         {/* Projekterfahrung */}
@@ -158,13 +174,25 @@ const Experience = () => {
                   {exp.role && <span className={`font-bold text-lg mb-0.5 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>{exp.role}</span>}
                   <span className={`text-base font-normal block w-full ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{exp.company}</span>
                 </div>
-                <div className={`text-sm font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{exp.period}</div>
+                <div className="flex items-center gap-3">
+                  <div className={`text-sm font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{exp.period}</div>
+                  <button
+                    onClick={() => toggleProject(i)}
+                    className={`flex items-center gap-1 px-2 py-1 rounded-md hover:bg-[#cda967]/10 transition-colors whitespace-nowrap ${isDarkMode ? 'text-gray-400 hover:text-[#cda967]' : 'text-gray-500 hover:text-[#cda967]'}`}
+                    aria-label={expandedProjects[i] ? "Details einklappen" : "Details ausklappen"}
+                  >
+                    <span className="text-xs font-medium">{expandedProjects[i] ? "Einklappen" : "Details"}</span>
+                    {expandedProjects[i] ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                  </button>
+                </div>
               </div>
-              <ul className={`text-sm mb-2 list-disc ml-5 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                {exp.description.map((d, j) => (
-                  <li key={j}>{d}</li>
-                ))}
-              </ul>
+              {expandedProjects[i] && (
+                <ul className={`text-sm mb-2 list-disc ml-5 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  {exp.description.map((d, j) => (
+                    <li key={j}>{d}</li>
+                  ))}
+                </ul>
+              )}
               <div className="flex flex-wrap gap-2 mt-2">
                 {exp.tags.map((tag, j) => (
                   <span key={j} className={`border border-[#cda967]/30 text-xs font-medium px-3 py-1 rounded-full shadow-sm transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] text-[#ededed]' : 'bg-[#f8f8f8] text-[#1A1A1A]'}`}>
@@ -202,13 +230,25 @@ const Experience = () => {
                   {exp.role && <span className={`font-bold text-lg mb-0.5 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>{exp.role}</span>}
                   <span className={`text-base font-normal block w-full ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{exp.company}</span>
                 </div>
-                <div className={`text-sm font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{exp.period}</div>
+                <div className="flex items-center gap-3">
+                  <div className={`text-sm font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{exp.period}</div>
+                  <button
+                    onClick={() => toggleWork(i)}
+                    className={`flex items-center gap-1 px-2 py-1 rounded-md hover:bg-[#cda967]/10 transition-colors whitespace-nowrap ${isDarkMode ? 'text-gray-400 hover:text-[#cda967]' : 'text-gray-500 hover:text-[#cda967]'}`}
+                    aria-label={expandedWork[i] ? "Details einklappen" : "Details ausklappen"}
+                  >
+                    <span className="text-xs font-medium">{expandedWork[i] ? "Einklappen" : "Details"}</span>
+                    {expandedWork[i] ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                  </button>
+                </div>
               </div>
-              <ul className={`text-sm mb-2 list-disc ml-5 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                {exp.description.map((d, j) => (
-                  <li key={j}>{d}</li>
-                ))}
-              </ul>
+              {expandedWork[i] && (
+                <ul className={`text-sm mb-2 list-disc ml-5 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  {exp.description.map((d, j) => (
+                    <li key={j}>{d}</li>
+                  ))}
+                </ul>
+              )}
               <div className="flex flex-wrap gap-2 mt-2">
                 {exp.tags.map((tag, j) => (
                   <span key={j} className={`border border-[#cda967]/30 text-xs font-medium px-3 py-1 rounded-full shadow-sm transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] text-[#ededed]' : 'bg-[#f8f8f8] text-[#1A1A1A]'}`}>
