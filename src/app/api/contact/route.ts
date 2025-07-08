@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     try {
       const data = await resend.emails.send({
-        from: 'info@send.yannicnandy.com',
+        from: 'info@yannicnandy.com',
         to: 'info@yannicnandy.com',
         replyTo: email,
         subject,
