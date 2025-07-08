@@ -33,4 +33,4 @@ Die Website wird automatisch über Vercel deployed, sobald Änderungen zum GitHu
 
 ---
 
-*Entwickelt mit ❤️ von Yannic Nandy*
+*Entwickelt mit ❤️ von yannic93*
