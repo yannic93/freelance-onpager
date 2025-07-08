@@ -16,7 +16,6 @@ export async function POST(request: NextRequest) {
     // Resend Integration
     const resend = new Resend('re_9Cr6v1Vg_EJFjiUrYKkzT1tqZZf6jHBjv');
     const subject = `Neue Kontaktanfrage von ${name}`;
-    const serviceList = services && services.length > 0 ? `\n\nServices:\n- ${services.join('\n- ')}` : '';
     const html = `
       <h2>Neue Kontaktanfrage</h2>
       <p><strong>Name:</strong> ${name}</p>
@@ -40,9 +39,9 @@ export async function POST(request: NextRequest) {
           { status: 500 }
         );
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       return NextResponse.json(
-        { error: 'E-Mail Versand fehlgeschlagen: ' + (err.message || 'Unbekannter Fehler') },
+        { error: 'E-Mail Versand fehlgeschlagen: ' + (err instanceof Error ? err.message : 'Unbekannter Fehler') },
         { status: 500 }
       );
     }
