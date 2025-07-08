@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,18 +13,42 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Temporär: Log die Nachricht statt E-Mail zu senden
-    console.log('Neue Kontaktanfrage:', {
-      name,
-      email,
-      message,
-      services,
-      timestamp: new Date().toISOString()
-    });
+    // Resend Integration
+    const resend = new Resend('re_9Cr6v1Vg_EJFjiUrYKkzT1tqZZf6jHBjv');
+    const subject = `Neue Kontaktanfrage von ${name}`;
+    const serviceList = services && services.length > 0 ? `\n\nServices:\n- ${services.join('\n- ')}` : '';
+    const html = `
+      <h2>Neue Kontaktanfrage</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>E-Mail:</strong> ${email}</p>
+      <p><strong>Nachricht:</strong><br/>${message.replace(/\n/g, '<br/>')}</p>
+      ${services && services.length > 0 ? `<p><strong>Services:</strong><br/>${services.map((s: string) => `<li>${s}</li>`).join('')}</p>` : ''}
+      <p><small>Gesendet am: ${new Date().toLocaleString('de-DE')}</small></p>
+    `;
 
-    // Simuliere erfolgreiche Antwort
+    try {
+      const data = await resend.emails.send({
+        from: 'info@send.yannicnandy.com',
+        to: 'info@yannicnandy.com',
+        replyTo: email,
+        subject,
+        html,
+      });
+      if (data.error) {
+        return NextResponse.json(
+          { error: 'E-Mail konnte nicht gesendet werden: ' + data.error.message },
+          { status: 500 }
+        );
+      }
+    } catch (err: any) {
+      return NextResponse.json(
+        { error: 'E-Mail Versand fehlgeschlagen: ' + (err.message || 'Unbekannter Fehler') },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
-      { message: 'Nachricht erfolgreich gesendet! (Temporär: E-Mail-Funktion wird bald aktiviert)' },
+      { message: 'Nachricht erfolgreich gesendet!' },
       { status: 200 }
     );
   } catch (error) {

@@ -37,7 +37,6 @@ export default function Impressum() {
             <h2 className={`text-xl font-semibold mb-4 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>Kontakt</h2>
             <div className={`space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               <p><strong>E-Mail:</strong> info@yannicnandy.com</p>
-              <p><strong>Telefon:</strong> +49 (0) 176 / 48291993</p>
             </div>
           </section>
 
