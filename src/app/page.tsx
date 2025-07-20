@@ -1,19 +1,6 @@
-import Hero from "./components/Hero";
-import Features from "./components/Features";
-// import SkillSection from "./components/SkillSection";
-import Experience from "./components/Experience";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+import { homeData } from './data';
+import BaseTemplate from './components/templates/BaseTemplate';
 
 export default function Home() {
-  return (
-    <main>
-      <Hero />
-      <Features />
-      {/* <SkillSection /> */}
-      <Experience />
-      <Contact />
-      <Footer />
-    </main>
-  );
+  return <BaseTemplate pageData={homeData} />;
 }

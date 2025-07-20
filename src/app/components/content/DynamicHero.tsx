@@ -1,16 +1,20 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { useDarkMode } from "../contexts/DarkModeContext";
+import { useDarkMode } from "../../contexts/DarkModeContext";
+import { HeroConfig } from "../../data/types";
+
+interface DynamicHeroProps {
+  config: HeroConfig;
+}
 
 const menuLinks = [
-  { label: "Über mich", href: "#about" },
   { label: "Leistungen", href: "#features" },
   { label: "Projekte & Skills", href: "#experience" },
   { label: "Kontakt", href: "#contact" },
 ];
 
-const Hero = () => {
+const DynamicHero = ({ config }: DynamicHeroProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const marqueeRef = useRef<HTMLDivElement>(null);
@@ -45,7 +49,7 @@ const Hero = () => {
   // Scrollspy für aktive Sektion
   useEffect(() => {
     const handleScroll = () => {
-      const sectionIds = ["about", "features", "experience", "contact"];
+      const sectionIds = ["features", "experience", "contact"];
       let current = "";
       for (let i = 0; i < sectionIds.length; i++) {
         const el = document.getElementById(sectionIds[i]);
@@ -201,13 +205,21 @@ const Hero = () => {
           </span>
         </div>
         <h1 className={`text-2xl xs:text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 sm:mb-6 max-w-full sm:max-w-3xl leading-tight transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
-          style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
-          Freelancer für <span className="text-[#cda967]">skalierbare E-Commerce-Systeme</span>.
+          style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
+          dangerouslySetInnerHTML={{ __html: config.title }}>
         </h1>
-        <p className={`text-base sm:text-lg md:text-xl max-w-full sm:max-w-xl mx-auto mb-2 sm:mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
-          style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
-          Shopify, Plentymarkets, Klaviyo & n8n – von Setup bis Automatisierung.
-        </p>
+        {config.subtitle && (
+          <h2 className={`text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-4 max-w-full sm:max-w-2xl leading-tight transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
+            style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
+            dangerouslySetInnerHTML={{ __html: config.subtitle }}>
+          </h2>
+        )}
+        {config.description && (
+          <p className={`text-base sm:text-lg md:text-xl max-w-full sm:max-w-xl mx-auto mb-2 sm:mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
+            style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
+            {config.description}
+          </p>
+        )}
         {/* Toolstack Logos Marquee */}
         <div className="relative flex justify-center items-center mb-6 sm:mb-8 w-full max-w-full overflow-x-hidden" style={{ maxWidth: 480 }}>
           {/* Gradient Overlays */}
@@ -257,21 +269,25 @@ const Hero = () => {
           `}</style>
         </div>
         <div className="flex flex-wrap gap-2 sm:gap-4 justify-center w-full max-w-full">
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-[#cda967] px-5 sm:px-7 py-2 sm:py-3 text-base sm:text-lg font-semibold text-white shadow-md hover:bg-[#b8934e] transition-colors max-w-full"
-            style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
-            onClick={e => {
-              e.preventDefault();
-              const el = document.getElementById('contact');
-              if (el) {
-                const y = el.getBoundingClientRect().top + window.scrollY - 110; // 110px Offset für Stickybar
-                window.scrollTo({ top: y, behavior: 'smooth' });
-              }
-            }}
-          >
-            Kontakt aufnehmen <span className="text-xl">→</span>
-          </a>
+          {config.ctaText && config.ctaLink && (
+            <a
+              href={config.ctaLink}
+              className="inline-flex items-center gap-2 rounded-full bg-[#cda967] px-5 sm:px-7 py-2 sm:py-3 text-base sm:text-lg font-semibold text-white shadow-md hover:bg-[#b8934e] transition-colors max-w-full"
+              style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
+                             onClick={e => {
+                 e.preventDefault();
+                 if (config.ctaLink) {
+                   const el = document.getElementById(config.ctaLink.replace('#', ''));
+                   if (el) {
+                     const y = el.getBoundingClientRect().top + window.scrollY - 110; // 110px Offset für Stickybar
+                     window.scrollTo({ top: y, behavior: 'smooth' });
+                   }
+                 }
+               }}
+            >
+              {config.ctaText} <span className="text-xl">→</span>
+            </a>
+          )}
           <a
             href="#experience"
             className={`inline-flex items-center gap-2 rounded-full border border-[#cda967]/40 px-5 sm:px-7 py-2 sm:py-3 text-base sm:text-lg font-semibold shadow-md hover:bg-[#cda967]/10 hover:text-[#cda967] transition-colors max-w-full ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}
@@ -293,4 +309,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default DynamicHero; 
