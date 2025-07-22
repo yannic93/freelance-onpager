@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useDarkMode } from "../contexts/DarkModeContext";
 
 const Footer = () => {
@@ -20,9 +21,9 @@ const Footer = () => {
         Remote verfügbar · Projekte in DE / EU / CH · Persönlich ansprechbar
       </div>
       <div className="flex flex-wrap justify-center gap-4 text-sm font-medium">
-        <a href="/impressum" className="text-[#cda967] hover:underline transition">Impressum</a>
+        <Link href="/impressum" className="text-[#cda967] hover:underline transition">Impressum</Link>
         <span className={isDarkMode ? "text-gray-600" : "text-gray-300"}>|</span>
-        <a href="/datenschutz" className="text-[#cda967] hover:underline transition">Datenschutz</a>
+        <Link href="/datenschutz" className="text-[#cda967] hover:underline transition">Datenschutz</Link>
         <span className={isDarkMode ? "text-gray-600" : "text-gray-300"}>|</span>
         <a href="https://www.linkedin.com/in/dein-profil" target="_blank" rel="noopener noreferrer" className="text-[#cda967] hover:underline transition">LinkedIn</a>
       </div>

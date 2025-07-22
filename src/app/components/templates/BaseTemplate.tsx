@@ -2,7 +2,6 @@ import React from 'react';
 import { PageData } from '../../data/types';
 import HeroVariant from '../content/HeroVariant';
 import FeatureVariants from '../content/FeatureVariants';
-import About from '../About';
 import Experience from '../Experience';
 import Contact from '../Contact';
 import Footer from '../Footer';
