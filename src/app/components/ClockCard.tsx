@@ -22,6 +22,8 @@ const ClockCard = () => {
   const [diff, setDiff] = useState<number | null>(null);
   const [open, setOpen] = useState<boolean>(true);
   const { isDarkMode } = useDarkMode();
+  
+  // Z-index: 9999 ensures overlay above Cal.com floating button
 
   useEffect(() => {
     // Mobile: standardmäßig eingeklappt
