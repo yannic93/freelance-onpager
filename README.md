@@ -33,6 +33,8 @@ Die Website wird automatisch über Vercel deployed, sobald Änderungen zum GitHu
 
 ### Test: Auto-Deployment nach Repository-Reconnect
 
+**Status**: Testing manual deployment trigger
+
 ---
 
 *Entwickelt mit ❤️ von yannic93*
