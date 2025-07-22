@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Resend Integration
-    const resend = new Resend('re_9Cr6v1Vg_EJFjiUrYKkzT1tqZZf6jHBjv');
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const subject = `Neue Kontaktanfrage von ${name}`;
     const html = `
       <h2>Neue Kontaktanfrage</h2>
