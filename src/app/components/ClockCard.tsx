@@ -52,14 +52,7 @@ const ClockCard = () => {
   else if (diff < 0) diffText = `Du bist ${-diff}h zurück`;
 
   return (
-    <div 
-      className="fixed bottom-6 right-6 z-[999999]" 
-      style={{ 
-        isolation: 'isolate',
-        transform: 'translateZ(0)',
-        willChange: 'transform'
-      }}
-    >
+    <div className="fixed bottom-6 right-6 z-[9999]">
       {/* Collapsed Button */}
       {!open && (
         <button
@@ -76,9 +69,8 @@ const ClockCard = () => {
         className={`transition-all duration-300 ease-in-out ${open ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'} origin-bottom-right`}
         style={{ display: open ? 'block' : 'none' }}
       >
-        <div className={`relative max-w-xs w-[90vw] sm:w-72 border border-[#cda967]/30 shadow-2xl rounded-2xl px-5 py-4 flex flex-col gap-2 items-start transition-colors duration-300`} style={{
-          backgroundColor: isDarkMode ? 'rgba(26, 26, 26, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-          backdropFilter: 'blur(12px)',
+        <div className={`relative max-w-xs w-[90vw] sm:w-72 border border-[#cda967]/30 shadow-2xl rounded-2xl px-5 py-4 flex flex-col gap-2 items-start backdrop-blur-md transition-colors duration-300`} style={{
+          backgroundColor: `${isDarkMode ? 'var(--card-bg)' : 'var(--card-bg)'}/90`,
           fontFamily: 'inherit'
         }}>
           {/* Close Button */}
