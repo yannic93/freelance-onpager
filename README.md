@@ -31,6 +31,8 @@ Die Website ist dann unter `http://localhost:3000` verfügbar.
 
 Die Website wird automatisch über Vercel deployed, sobald Änderungen zum GitHub Repository gepusht werden.
 
+### Test: Auto-Deployment nach Repository-Reconnect
+
 ---
 
 *Entwickelt mit ❤️ von yannic93*
