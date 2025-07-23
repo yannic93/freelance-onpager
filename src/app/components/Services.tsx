@@ -81,7 +81,7 @@ const services: ServiceCard[] = [
     id: "plentymarkets",
     icon: <Database className="w-8 h-8" />, // Fallback icon
     title: "Plentymarkets Integration",
-    description: "Nahtlose Systemverbindungen und Automatisierung Ihrer E-Commerce-Prozesse",
+    description: "Nahtlose Systemverbindungen und Automatisierung deiner E-Commerce-Prozesse",
     details: [
       "Multi-Channel Verkauf Setup",
       "Warehouse Management",
@@ -111,7 +111,7 @@ const services: ServiceCard[] = [
     id: "automation",
     icon: <Settings className="w-8 h-8" />,
     title: "Workflow Automatisierung",
-    description: "Intelligente Automatisierung Ihrer Geschäftsprozesse",
+    description: "Intelligente Automatisierung deiner Geschäftsprozesse",
     details: [
       "n8n Workflow Setup",
       "API-Orchestrierung",
@@ -140,7 +140,7 @@ const services: ServiceCard[] = [
     id: "development",
     icon: <Code className="w-8 h-8" />,
     title: "Custom Development",
-    description: "Maßgeschneiderte Lösungen und Softwareentwicklung für Ihre spezifischen Anforderungen",
+    description: "Maßgeschneiderte Lösungen und Softwareentwicklung für deine spezifischen Anforderungen",
     details: [
       "Web-Anwendungen & APIs",
       "E-Commerce Integrationen",
@@ -246,18 +246,33 @@ const Services = () => {
                 </ul>
 
                 {/* CTA */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
-                  <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                <a
+                  href="#contact"
+                  className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700 cursor-pointer group/cta"
+                  onClick={e => {
+                    e.preventDefault();
+                    const el = document.getElementById('contact');
+                    if (el) {
+                      const y = el.getBoundingClientRect().top + window.scrollY - 110; // 110px Offset für Stickybar
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  <span className={`text-sm font-medium transition-colors duration-300 ${
+                    isDarkMode ? 'text-gray-400 group-hover/cta:text-[#cda967]' : 'text-gray-500 group-hover/cta:text-[#cda967]'
+                  }`}>
                     Mehr erfahren
                   </span>
                   <ArrowRight 
                     className={`w-5 h-5 transition-all duration-300 ${
                       hoveredCard === service.id 
                         ? 'translate-x-1 text-[#cda967]' 
-                        : isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                        : isDarkMode 
+                          ? 'text-gray-400 group-hover/cta:text-[#cda967] group-hover/cta:translate-x-1' 
+                          : 'text-gray-500 group-hover/cta:text-[#cda967] group-hover/cta:translate-x-1'
                     }`}
                   />
-                </div>
+                </a>
               </div>
             </div>
           ))}
@@ -266,7 +281,7 @@ const Services = () => {
         {/* Call to Action */}
         <div className="text-center mt-12">
           <p className={`text-lg mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            Lassen Sie uns Ihr E-Commerce-Potenzial gemeinsam ausschöpfen
+            Lass uns dein E-Commerce-Potenzial gemeinsam ausschöpfen
           </p>
           <a
             href="#contact"
