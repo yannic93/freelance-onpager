@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useDarkMode } from "../contexts/DarkModeContext";
+import { useDarkMode, useClockCard } from "../contexts/DarkModeContext";
 
 function getTimeInZone(timeZone: string) {
   return new Date(
@@ -22,8 +22,9 @@ const ClockCard = () => {
   const [diff, setDiff] = useState<number | null>(null);
   const [open, setOpen] = useState<boolean>(true);
   const { isDarkMode } = useDarkMode();
+  const { setIsClockCardOpen } = useClockCard();
   
-  // Z-index: 9999 ensures overlay above Cal.com floating button on mobile
+  // Z-index: 99999 ensures overlay above Cal.com floating button on mobile
 
   useEffect(() => {
     // Mobile: standardmäßig eingeklappt
@@ -43,6 +44,11 @@ const ClockCard = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Update context when open state changes
+  useEffect(() => {
+    setIsClockCardOpen(open);
+  }, [open, setIsClockCardOpen]);
+
   const format = (d: Date) => d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
   let diffText = "";
@@ -52,7 +58,7 @@ const ClockCard = () => {
   else if (diff < 0) diffText = `Du bist ${-diff}h zurück`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9999]">
+    <div className={`fixed bottom-6 right-6 ${open ? 'z-[999999]' : 'z-[99999]'}`}>
       {/* Collapsed Button */}
       {!open && (
         <button

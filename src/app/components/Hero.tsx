@@ -259,7 +259,7 @@ const Hero = () => {
         <div className="flex flex-wrap gap-2 sm:gap-4 justify-center w-full max-w-full">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-[#cda967] px-5 sm:px-7 py-2 sm:py-3 text-base sm:text-lg font-semibold text-white shadow-md hover:bg-[#b8934e] transition-colors max-w-full"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#cda967] px-5 sm:px-7 py-2 sm:py-3 text-base sm:text-lg font-semibold text-white hover:bg-[#b8955a] transition-all duration-300 hover:scale-105 hover:shadow-lg max-w-full"
             style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
             onClick={e => {
               e.preventDefault();
@@ -274,7 +274,7 @@ const Hero = () => {
           </a>
           <a
             href="#experience"
-            className={`inline-flex items-center gap-2 rounded-full border border-[#cda967]/40 px-5 sm:px-7 py-2 sm:py-3 text-base sm:text-lg font-semibold shadow-md hover:bg-[#cda967]/10 hover:text-[#cda967] transition-colors max-w-full ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}
+            className={`inline-flex items-center gap-2 rounded-xl border border-[#cda967]/40 px-5 sm:px-7 py-2 sm:py-3 text-base sm:text-lg font-semibold hover:bg-[#cda967]/10 hover:text-[#cda967] transition-all duration-300 hover:scale-105 hover:shadow-lg max-w-full ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}
             style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
             onClick={e => {
               e.preventDefault();

@@ -1,5 +1,4 @@
 "use client";
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface DarkModeContextType {
@@ -7,12 +6,26 @@ interface DarkModeContextType {
   toggleDarkMode: () => void;
 }
 
+interface ClockCardContextType {
+  isClockCardOpen: boolean;
+  setIsClockCardOpen: (open: boolean) => void;
+}
+
 const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined);
+const ClockCardContext = createContext<ClockCardContextType | undefined>(undefined);
 
 export const useDarkMode = () => {
   const context = useContext(DarkModeContext);
   if (context === undefined) {
     throw new Error('useDarkMode must be used within a DarkModeProvider');
+  }
+  return context;
+};
+
+export const useClockCard = () => {
+  const context = useContext(ClockCardContext);
+  if (context === undefined) {
+    throw new Error('useClockCard must be used within a DarkModeProvider');
   }
   return context;
 };
@@ -24,6 +37,7 @@ interface DarkModeProviderProps {
 export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isClockCardOpen, setIsClockCardOpen] = useState(false);
 
   // Load dark mode preference from localStorage on mount
   useEffect(() => {
@@ -96,7 +110,9 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) 
 
   return (
     <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
-      {children}
+      <ClockCardContext.Provider value={{ isClockCardOpen, setIsClockCardOpen }}>
+        {children}
+      </ClockCardContext.Provider>
     </DarkModeContext.Provider>
   );
 }; 
