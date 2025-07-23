@@ -18,10 +18,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Yannic Nandy – E-Commerce Freelancer für Shopify, Plentymarkets, Klaviyo & n8n",
   description: "Freelancer für skalierbare E-Commerce-Systeme, Automatisierung und Prozessoptimierung, in DE/EU/CH",
+  manifest: "/manifest.json",
   icons: {
-    icon: "/Media/favicon-yn.png",
-    shortcut: "/Media/favicon-yn.png",
-    apple: "/Media/favicon-yn.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/Media/favicon-yn.png", type: "image/png", sizes: "32x32" },
+      { url: "/Media/favicon-yn.png", type: "image/png", sizes: "16x16" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/Media/favicon-yn.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 
