@@ -143,9 +143,8 @@ const services: ServiceCard[] = [
     description: "Maßgeschneiderte Lösungen und Softwareentwicklung für deine spezifischen Anforderungen",
     details: [
       "Web-Anwendungen & APIs",
-      "E-Commerce Integrationen",
-      "Automatisierungs-Tools",
-      "KI-gestützte Workflows"
+      "Individuelle Shop Anpassungen",
+      "Clean Code durch Entwickler Partnerschaft"
     ],
     color: "#cda967",
     gradient: "from-yellow-400 to-amber-500",
