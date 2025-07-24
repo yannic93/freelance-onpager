@@ -206,7 +206,7 @@ const Hero = () => {
         </h1>
         <p className={`text-base sm:text-lg md:text-xl max-w-full sm:max-w-xl mx-auto mb-2 sm:mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
           style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
-          Shopify, Plentymarkets, Klaviyo & n8n – von Setup bis Automatisierung.
+          Shopify, PlentyONE, klaviyo & n8n – von Setup bis Automatisierung.
         </p>
         {/* Toolstack Logos Marquee */}
         <div className="relative flex justify-center items-center mb-6 sm:mb-8 w-full max-w-full overflow-x-hidden" style={{ maxWidth: 480 }}>
