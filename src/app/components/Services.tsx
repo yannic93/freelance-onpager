@@ -80,7 +80,7 @@ const services: ServiceCard[] = [
   {
     id: "plentymarkets",
     icon: <Database className="w-8 h-8" />, // Fallback icon
-    title: "Plentymarkets Integration",
+    title: "PlentyONE Integration",
     description: "Nahtlose Systemverbindungen und Automatisierung deiner E-Commerce-Prozesse",
     details: [
       "Multi-Channel Verkauf Setup",
