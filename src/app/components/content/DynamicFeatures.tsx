@@ -3,9 +3,9 @@
 import React from "react";
 import { 
   Zap, Settings, Brain, Puzzle, Bot, BarChart, Workflow, 
-  ShoppingBag, Database, Code, Smartphone, Globe, 
-  TrendingUp, Users, Shield, ArrowRight, Headphones, 
-  Search, Layers, GitBranch, Mail
+  ShoppingBag, Code, Globe, 
+  TrendingUp, Users, ArrowRight, Headphones, 
+  Search, GitBranch
 } from "lucide-react";
 import { useDarkMode } from "../../contexts/DarkModeContext";
 import { FeatureConfig } from "../../data/types";
