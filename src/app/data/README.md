@@ -37,7 +37,8 @@ export const meineNeueSeiteData: PageData = {
     description: 'Beschreibung',
     ctaText: 'Call-to-Action',
     ctaLink: '#contact',
-    variant: 'default' // 'default', 'freiburg', 'minimal'
+    variant: 'default', // 'default', 'minimal'
+    brandName: 'Yannic Nandy' // Optional: Custom brand name für Navigation
   },
   features: [
     {
@@ -76,8 +77,7 @@ Die Seite ist automatisch unter `/meine-neue-seite` verfügbar.
 ## Verfügbare Varianten
 
 ### Hero-Varianten
-- `default`: Standard Hero-Sektion
-- `freiburg`: Spezielle Freiburg-Variante
+- `default`: Standard Hero-Sektion (unterstützt brandName für Custom Branding)
 - `minimal`: Minimalistische Variante (TODO)
 
 ### Feature-Varianten

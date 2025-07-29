@@ -20,7 +20,7 @@ const ClockCard = () => {
   const [userTime, setUserTime] = useState<Date | null>(null);
   const [berlinTime, setBerlinTime] = useState<Date | null>(null);
   const [diff, setDiff] = useState<number | null>(null);
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
   const { isDarkMode } = useDarkMode();
   const { setIsClockCardOpen } = useClockCard();
   

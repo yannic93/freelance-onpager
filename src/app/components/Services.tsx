@@ -246,14 +246,16 @@ const Services = () => {
 
                 {/* CTA */}
                 <a
-                  href="#contact"
+                  href={service.id === 'shopify' ? '/shopify-freelancer' : '#contact'}
                   className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700 cursor-pointer group/cta"
                   onClick={e => {
-                    e.preventDefault();
-                    const el = document.getElementById('contact');
-                    if (el) {
-                      const y = el.getBoundingClientRect().top + window.scrollY - 110; // 110px Offset für Stickybar
-                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    if (service.id !== 'shopify') {
+                      e.preventDefault();
+                      const el = document.getElementById('contact');
+                      if (el) {
+                        const y = el.getBoundingClientRect().top + window.scrollY - 110; // 110px Offset für Stickybar
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                      }
                     }
                   }}
                 >

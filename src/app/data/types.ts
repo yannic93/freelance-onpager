@@ -4,7 +4,8 @@ export interface HeroConfig {
   description?: string;
   ctaText?: string;
   ctaLink?: string;
-  variant?: 'default' | 'freiburg' | 'minimal';
+  variant?: 'default' | 'minimal';
+  brandName?: string;
   backgroundImage?: string;
 }
 

@@ -85,7 +85,7 @@ const DynamicHero = ({ config }: DynamicHeroProps) => {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="font-extrabold text-[#cda967] px-3 text-base tracking-wide select-none whitespace-nowrap hover:text-[#b8934e] transition-colors cursor-pointer"
           >
-            Yannic Nandy
+            {config.brandName || 'Yannic Nandy'}
           </button>
           {menuLinks.map((link) => (
             <a
@@ -135,7 +135,7 @@ const DynamicHero = ({ config }: DynamicHeroProps) => {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="font-extrabold text-[#cda967] text-base tracking-wide select-none whitespace-nowrap hover:text-[#b8934e] transition-colors cursor-pointer"
             >
-              Yannic Nandy
+              {config.brandName || 'Yannic Nandy'}
             </button>
             {/* Dark Mode Toggle Button Mobile */}
             <button
@@ -204,19 +204,19 @@ const DynamicHero = ({ config }: DynamicHeroProps) => {
             Begrenzt verfügbar - gerne Anfragen
           </span>
         </div>
-        <h1 className={`text-2xl xs:text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 sm:mb-6 max-w-full sm:max-w-3xl leading-tight transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
-          style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
+        <h1 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 max-w-full sm:max-w-3xl leading-tight transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
+          style={{ fontFamily: 'inherit', maxWidth: '75vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
           dangerouslySetInnerHTML={{ __html: config.title }}>
         </h1>
         {config.subtitle && (
-          <h2 className={`text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-4 max-w-full sm:max-w-2xl leading-tight transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
-            style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
+          <h2 className={`text-lg sm:text-xl md:text-2xl font-semibold mb-2 sm:mb-4 max-w-full sm:max-w-3xl leading-relaxed transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
+            style={{ fontFamily: 'inherit', maxWidth: '85vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
             dangerouslySetInnerHTML={{ __html: config.subtitle }}>
           </h2>
         )}
         {config.description && (
-          <p className={`text-base sm:text-lg md:text-xl max-w-full sm:max-w-xl mx-auto mb-2 sm:mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
-            style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
+          <p className={`text-base sm:text-lg md:text-xl max-w-full sm:max-w-2xl mx-auto mb-2 sm:mb-4 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
+            style={{ fontFamily: 'inherit', maxWidth: '80vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
             {config.description}
           </p>
         )}

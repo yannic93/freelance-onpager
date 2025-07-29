@@ -16,7 +16,8 @@ export const pageTemplate: PageData = {
     description: 'Beschreibung des Angebots oder der Dienstleistung.',
     ctaText: 'Call-to-Action',
     ctaLink: '#contact',
-    variant: 'default' // 'default', 'freiburg', 'minimal'
+    variant: 'default', // 'default', 'minimal'
+    brandName: 'Yannic Nandy' // Optional: Custom brand name für Navigation
   },
   features: [
     {

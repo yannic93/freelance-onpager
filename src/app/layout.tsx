@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClockCard from "./components/ClockCard";
 import { DarkModeProvider } from "./contexts/DarkModeContext";
-import CalcomFloatingButton from "./components/CalcomFloatingButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,7 +56,6 @@ export default function RootLayout({
         <DarkModeProvider>
           {children}
           <ClockCard />
-          <CalcomFloatingButton />
         </DarkModeProvider>
       </body>
     </html>
