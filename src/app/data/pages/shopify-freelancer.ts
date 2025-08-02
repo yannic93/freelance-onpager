@@ -27,47 +27,91 @@ export const shopifyFreelancerData: PageData = {
     'Conversion Rate Optimierung Shopify'
   ],
   hero: {
-    title: 'Shopify Freelancer für nachhaltige E-Commerce Lösungen aus einer Hand',
+    title: '<span style="color: #9ebe59;">Shopify Partner</span><br> mit Fokus auf Strategie, Skalierbarkeit und persönlicher Umsetzung.',
     subtitle: '',
     description: 'Ich begleite dich bei Setup, Migration, Optimierung und laufendem Support.',
-    ctaText: 'Kostenloses Beratungsgespräch',
+    ctaText: 'Kontakt aufnehmen',
     ctaLink: '#contact',
-    variant: 'default'
+    variant: 'default',
+    ctaVariant: 'shopify',
+    titleVariant: 'shopify',
+    showLogoCarousel: false
+  },
+  featuresHeader: {
+    title: 'Shopify Expertise & Services',
+    description: 'Professionelle Shopify-Entwicklung für nachhaltigen E-Commerce Erfolg',
+    iconName: 'shopify'
   },
   features: [
     {
       title: 'Shop Setup',
-      description: 'Kompletter Shopify Store Aufbau von Grund auf. Theme-Auswahl, Design-Anpassung, Produktkatalog-Setup, Zahlungsabwicklung und rechtskonforme Konfiguration für den erfolgreichen Start.',
+      description: 'Kompletter Shopify Store Aufbau von Grund auf.',
+      details: [
+        'Theme-Auswahl & Design-Anpassung',
+        'Produktkatalog-Setup',
+        'Zahlungsabwicklung',
+        'Rechtskonforme Konfiguration'
+      ],
       icon: 'settings',
       variant: 'card'
     },
     {
       title: 'Shop Migration',
-      description: 'Sichere Migration Ihres bestehenden Online-Shops zu Shopify. Vollständige Datenübertragung, URL-Struktur Erhaltung, SEO-Kontinuität und Zero-Downtime Migration.',
+      description: 'Sichere Migration Ihres bestehenden Online-Shops zu Shopify.',
+      details: [
+        'Vollständige Datenübertragung',
+        'URL-Struktur Erhaltung',
+        'SEO-Kontinuität',
+        'Zero-Downtime Migration'
+      ],
       icon: 'migration',
       variant: 'card'
     },
     {
       title: 'Shop Relaunch',
-      description: 'Modernisierung Ihres bestehenden Shopify Stores mit neuem Design, verbesserter User Experience, Performance-Optimierung und aktuellen E-Commerce Best Practices.',
+      description: 'Modernisierung Ihres bestehenden Shopify Stores.',
+      details: [
+        'Neues Design & UX',
+        'Performance-Optimierung',
+        'Mobile Optimierung',
+        'E-Commerce Best Practices'
+      ],
       icon: 'performance',
       variant: 'card'
     },
     {
       title: 'Shop Optimierung',
-      description: 'Kontinuierliche Optimierung für höhere Conversion Rates, bessere Performance, verbesserte SEO-Rankings und erhöhte Umsätze durch datenbasierte Verbesserungen.',
+      description: 'Kontinuierliche Optimierung für höhere Conversion Rates.',
+      details: [
+        'Conversion Rate Optimierung',
+        'Performance-Verbesserung',
+        'SEO-Rankings',
+        'Datenbasierte Verbesserungen'
+      ],
       icon: 'marketing',
       variant: 'card'
     },
     {
       title: 'Langfristiger Support',
-      description: 'Alternative zur Agentur-Betreuung. Persönlicher Ansprechpartner für technischen Support, Updates, Troubleshooting und strategische Weiterentwicklung Ihres Shops.',
+      description: 'Alternative zur Agentur-Betreuung.',
+      details: [
+        'Persönlicher Ansprechpartner',
+        'Technischer Support',
+        'Updates & Troubleshooting',
+        'Strategische Weiterentwicklung'
+      ],
       icon: 'support',
       variant: 'card'
     },
     {
       title: 'Schnittstellen & Integrationen',
-      description: 'Professionelle Integration von ERP-Systemen, Warenwirtschaft, CRM-Tools, Marketing-Automation und Custom APIs für nahtlose Geschäftsprozesse.',
+      description: 'Professionelle Integration für nahtlose Geschäftsprozesse.',
+      details: [
+        'ERP-Systeme & Warenwirtschaft',
+        'CRM-Tools Integration',
+        'Marketing-Automation',
+        'Custom APIs'
+      ],
       icon: 'integration',
       variant: 'card'
     }

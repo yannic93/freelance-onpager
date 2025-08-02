@@ -6,16 +6,18 @@ import { useDarkMode } from "../contexts/DarkModeContext";
 const menuLinks = [
   { label: "Über mich", href: "#about" },
   { label: "Leistungen", href: "#features" },
-  { label: "Projekte & Skills", href: "#experience" },
+  { label: "Projekt-Portfolio", href: "#experience" },
   { label: "Kontakt", href: "#contact" },
 ];
 
 const Hero = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const marqueeRef = useRef<HTMLDivElement>(null);
   const [marqueeWidth, setMarqueeWidth] = useState(0);
   const [activeSection, setActiveSection] = useState<string>("");
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Tool logos based on dark mode
   const toolLogos = [
@@ -23,6 +25,34 @@ const Hero = () => {
     { src: isDarkMode ? "/Media/PlentyONE-logo-white.svg" : "/Media/PlentyONE-logo-blue.svg", alt: "Plentymarkets" },
     { src: isDarkMode ? "/Media/klaviyo_white.svg" : "/Media/klaviyo_black.svg", alt: "Klaviyo" },
     { src: "/Media/N8N.Io_idQ-KxEpHW_0.png", alt: "n8n" },
+  ];
+
+  // Services for dropdown
+  const services = [
+    {
+      id: "shopify",
+      title: "Shopify",
+      description: "Shop-Einrichtung und Performance-Optimierung",
+      href: "/shopify-freelancer",
+      logo: isDarkMode ? "/Media/shopify_monotone_white.svg" : "/Media/shopify_monotone_black.svg",
+      color: "#9ebe59"
+    },
+    {
+      id: "plentymarkets",
+      title: "PlentyONE",
+      description: "Systemverbindungen und Automatisierung",
+      href: "/plenty-one",
+      logo: isDarkMode ? "/Media/PlentyONE-logo-white.svg" : "/Media/PlentyONE-logo-blue.svg",
+      color: "#0f2532"
+    },
+    {
+      id: "klaviyo",
+      title: "Klaviyo",
+      description: "E-Mail Marketing Automatisierung",
+      href: "/klaviyo-automation",
+      logo: isDarkMode ? "/Media/klaviyo_white.svg" : "/Media/klaviyo_black.svg",
+      color: "#e76e5b"
+    }
   ];
 
   useEffect(() => {
@@ -62,7 +92,12 @@ const Hero = () => {
     };
     window.addEventListener("scroll", handleScroll);
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
+    };
   }, []);
 
   return (
@@ -83,30 +118,163 @@ const Hero = () => {
           >
             Yannic Nandy
           </button>
-          {menuLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={
-                `px-4 py-1.5 rounded-full text-base font-medium transition-colors` +
-                (activeSection === link.href.replace('#','')
-                  ? " bg-[#cda967]/20 font-semibold text-[#cda967] shadow"
-                  : ` ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'} hover:bg-[#cda967]/10 hover:text-[#cda967]`)
-              }
-              style={{ fontFamily: 'inherit' }}
-              onClick={e => {
-                e.preventDefault();
-                const id = link.href.replace('#','');
-                const el = document.getElementById(id);
-                if (el) {
-                  const y = el.getBoundingClientRect().top + window.scrollY - 110; // 110px Offset für Stickybar
-                  window.scrollTo({ top: y, behavior: 'smooth' });
-                }
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
+          {menuLinks.map((link) => {
+            if (link.label === "Leistungen") {
+              return (
+                <div
+                  key={link.href}
+                  className="relative"
+                  onMouseEnter={() => {
+                    if (dropdownTimeoutRef.current) {
+                      clearTimeout(dropdownTimeoutRef.current);
+                      dropdownTimeoutRef.current = null;
+                    }
+                    setServicesDropdownOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    dropdownTimeoutRef.current = setTimeout(() => {
+                      setServicesDropdownOpen(false);
+                    }, 150);
+                  }}
+                >
+                  <button
+                    className={
+                      `px-4 py-1.5 rounded-full text-base font-medium transition-colors flex items-center gap-1` +
+                      (activeSection === link.href.replace('#','')
+                        ? " bg-[#cda967]/20 font-semibold text-[#cda967] shadow"
+                        : ` ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'} hover:bg-[#cda967]/10 hover:text-[#cda967]`)
+                    }
+                    style={{ fontFamily: 'inherit' }}
+                    onClick={() => {
+                      setServicesDropdownOpen(!servicesDropdownOpen);
+                    }}
+                  >
+                    {link.label}
+                    <svg className={`w-4 h-4 transition-transform ${servicesDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  
+                  {/* Services Dropdown */}
+                  {servicesDropdownOpen && (
+                    <div 
+                      className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-0 w-80 rounded-2xl shadow-2xl border border-[#cda967]/20 transition-colors duration-300 ${isDarkMode ? 'bg-black/95' : 'bg-white/95'} backdrop-blur-sm`}
+                      style={{ zIndex: 9999, marginTop: '4px' }}
+                      onMouseEnter={() => {
+                        if (dropdownTimeoutRef.current) {
+                          clearTimeout(dropdownTimeoutRef.current);
+                          dropdownTimeoutRef.current = null;
+                        }
+                        setServicesDropdownOpen(true);
+                      }}
+                      onMouseLeave={() => {
+                        dropdownTimeoutRef.current = setTimeout(() => {
+                          setServicesDropdownOpen(false);
+                        }, 150);
+                      }}
+                    >
+                      <div className="p-4">
+                        <div className="text-xs font-medium text-[#cda967] mb-3 uppercase tracking-wide">Hauptleistungen</div>
+                        <div className="space-y-3">
+                          {services.map((service) => (
+                            <a
+                              key={service.id}
+                              href={service.href}
+                              className="group block relative overflow-hidden rounded-xl transition-all duration-300 hover:-translate-y-1"
+                              style={{
+                                backgroundColor: 'var(--card-bg)',
+                                border: '1px solid var(--card-border)',
+                                boxShadow: '0 2px 10px rgba(0,0,0,0.06)'
+                              }}
+                              onClick={e => {
+                                if (service.href.startsWith('#')) {
+                                  e.preventDefault();
+                                  setServicesDropdownOpen(false);
+                                  const id = service.href.replace('#', '');
+                                  const el = document.getElementById(id);
+                                  if (el) {
+                                    const y = el.getBoundingClientRect().top + window.scrollY - 110;
+                                    window.scrollTo({ top: y, behavior: 'smooth' });
+                                  }
+                                } else {
+                                  setServicesDropdownOpen(false);
+                                }
+                              }}
+                            >
+                              {/* Service color accent */}
+                              <div 
+                                className="absolute top-0 left-0 right-0 h-1 transition-all duration-300 group-hover:opacity-100"
+                                style={{
+                                  backgroundColor: service.color,
+                                  opacity: 0.4
+                                }}
+                              />
+                              
+                              <div className="p-4">
+                                <div className="flex items-center gap-3">
+                                  {/* Logo container with colored background */}
+                                  <div 
+                                    className="flex-shrink-0 p-3 rounded-lg transition-colors duration-300"
+                                    style={{ 
+                                      backgroundColor: `${service.color}15`
+                                    }}
+                                  >
+                                    <img
+                                      src={service.logo}
+                                      alt={service.title}
+                                      className="w-8 h-6 object-contain"
+                                    />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <div className={`font-semibold text-sm mb-1 transition-colors duration-300 group-hover:text-[#cda967] ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}>
+                                      {service.title}
+                                    </div>
+                                    <div className={`text-xs leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                      {service.description}
+                                    </div>
+                                  </div>
+                                  <div className="flex-shrink-0">
+                                    <svg className="w-4 h-4 text-[#cda967] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            } else {
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={
+                    `px-4 py-1.5 rounded-full text-base font-medium transition-colors` +
+                    (activeSection === link.href.replace('#','')
+                      ? " bg-[#cda967]/20 font-semibold text-[#cda967] shadow"
+                      : ` ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'} hover:bg-[#cda967]/10 hover:text-[#cda967]`)
+                  }
+                  style={{ fontFamily: 'inherit' }}
+                  onClick={e => {
+                    e.preventDefault();
+                    const id = link.href.replace('#','');
+                    const el = document.getElementById(id);
+                    if (el) {
+                      const y = el.getBoundingClientRect().top + window.scrollY - 110; // 110px Offset für Stickybar
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  {link.label}
+                </a>
+              );
+            }
+          })}
           {/* Dark Mode Toggle Button */}
           <button
             onClick={toggleDarkMode}
@@ -161,32 +329,83 @@ const Hero = () => {
           </div>
           {/* Dropdown */}
           {mobileOpen && (
-            <div className={`absolute top-14 left-1/2 -translate-x-1/2 mt-2 rounded-2xl shadow-2xl border border-[#cda967]/20 flex flex-col items-stretch min-w-[180px] z-50 animate-fadeIn transition-colors duration-300 ${isDarkMode ? 'bg-black/95' : 'bg-white/95'}`}>
-              {menuLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className={
-                    `px-6 py-3 text-base font-medium rounded-2xl transition-colors text-center ` +
-                    (activeSection === link.href.replace('#','')
-                      ? "bg-[#cda967]/20 font-semibold text-[#cda967] shadow"
-                      : `${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'} hover:bg-[#cda967]/10 hover:text-[#cda967]`)
-                  }
-                  style={{ fontFamily: 'inherit' }}
-                  onClick={e => {
-                    e.preventDefault();
-                    setMobileOpen(false);
-                    const id = link.href.replace('#','');
-                    const el = document.getElementById(id);
-                    if (el) {
-                      const y = el.getBoundingClientRect().top + window.scrollY - 110;
-                      window.scrollTo({ top: y, behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  {link.label}
-                </a>
-              ))}
+            <div className={`absolute top-14 left-1/2 -translate-x-1/2 mt-2 rounded-2xl shadow-2xl border border-[#cda967]/20 flex flex-col items-stretch min-w-[240px] z-50 animate-fadeIn transition-colors duration-300 ${isDarkMode ? 'bg-black/95' : 'bg-white/95'} backdrop-blur-sm`}>
+              {menuLinks.map((link) => {
+                if (link.label === "Leistungen") {
+                  return (
+                    <div key={link.href} className="px-4 py-2">
+                      <div className={`px-2 py-2 text-base font-medium text-center ${activeSection === link.href.replace('#','') ? "bg-[#cda967]/20 font-semibold text-[#cda967] shadow rounded-xl" : `${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}`}>
+                        {link.label}
+                      </div>
+                      <div className="mt-2 space-y-1">
+                        {services.map((service) => (
+                          <a
+                            key={service.id}
+                            href={service.href}
+                            className={`group block p-3 rounded-xl transition-all duration-200 hover:bg-[#cda967]/10 border border-transparent hover:border-[#cda967]/20`}
+                            onClick={e => {
+                              setMobileOpen(false);
+                              if (service.href.startsWith('#')) {
+                                e.preventDefault();
+                                const id = service.href.replace('#', '');
+                                const el = document.getElementById(id);
+                                if (el) {
+                                  const y = el.getBoundingClientRect().top + window.scrollY - 110;
+                                  window.scrollTo({ top: y, behavior: 'smooth' });
+                                }
+                              }
+                            }}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="flex-shrink-0">
+                                <img
+                                  src={service.logo}
+                                  alt={service.title}
+                                  className="w-6 h-3 object-contain"
+                                />
+                              </div>
+                              <div className="flex-1 min-w-0 text-left">
+                                <div className={`font-medium text-sm group-hover:text-[#cda967] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}>
+                                  {service.title}
+                                </div>
+                                <div className={`text-xs mt-0.5 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                  {service.description}
+                                </div>
+                              </div>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      className={
+                        `px-6 py-3 text-base font-medium rounded-2xl transition-colors text-center ` +
+                        (activeSection === link.href.replace('#','')
+                          ? "bg-[#cda967]/20 font-semibold text-[#cda967] shadow"
+                          : `${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'} hover:bg-[#cda967]/10 hover:text-[#cda967]`)
+                      }
+                      style={{ fontFamily: 'inherit' }}
+                      onClick={e => {
+                        e.preventDefault();
+                        setMobileOpen(false);
+                        const id = link.href.replace('#','');
+                        const el = document.getElementById(id);
+                        if (el) {
+                          const y = el.getBoundingClientRect().top + window.scrollY - 110;
+                          window.scrollTo({ top: y, behavior: 'smooth' });
+                        }
+                      }}
+                    >
+                      {link.label}
+                    </a>
+                  );
+                }
+              })}
             </div>
           )}
         </div>

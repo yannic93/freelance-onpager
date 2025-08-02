@@ -2,56 +2,116 @@ import { PageData } from '../types';
 
 export const klaviyoAutomationData: PageData = {
   slug: 'klaviyo-automation',
-  title: 'Klaviyo Automatisierung | E-Mail Marketing Experte',
-  description: 'Professionelle Klaviyo Automatisierung für Ihr E-Mail Marketing. Steigern Sie Ihre Conversion-Raten mit intelligenten Workflows.',
+  title: 'Klaviyo E-Mail Marketing für ambitionierte E-Commerce Brands | Yannic Nandy',
+  description: 'Von der Ersteinrichtung bis zur automatisierten Kundenbindung – ich entwickle leistungsstarke Klaviyo Setups, die verkaufen. Perfekt integriert in dein System.',
   keywords: [
-    'Klaviyo Automatisierung',
-    'E-Mail Marketing Automatisierung',
-    'Klaviyo Workflows',
-    'E-Mail Marketing Experte',
-    'Klaviyo Beratung',
-    'E-Mail Automatisierung'
+    'Klaviyo E-Mail Marketing',
+    'Klaviyo Setup',
+    'Klaviyo Integration',
+    'Klaviyo Flow Entwicklung',
+    'E-Mail Automatisierung',
+    'Klaviyo Spezialist',
+    'Klaviyo Custom Coding',
+    'Klaviyo Segmentierung',
+    'Klaviyo Personalisierung',
+    'Klaviyo Optimierung'
   ],
   hero: {
-    title: 'Klaviyo Automatisierung',
-    subtitle: 'Intelligente E-Mail Marketing Workflows',
-    description: 'Professionelle Klaviyo Automatisierung für Ihr E-Mail Marketing. Wir erstellen maßgeschneiderte Workflows, die Ihre Conversion-Raten steigern und Ihre Kundenbindung verbessern.',
-    ctaText: 'Workflow erstellen',
+    title: '<span style="color: #e76e5b;">Klaviyo E-Mail Marketing</span><br> für ambitionierte E-Commerce Brands',
+    subtitle: '',
+    description: 'Smartes E-Mail Marketing mit durchdachten Flows, personalisiertem Content und messbarem Impact.',
+    ctaText: 'Kontakt aufnehmen',
     ctaLink: '#contact',
-    variant: 'default'
+    variant: 'default',
+    ctaVariant: 'klaviyo',
+    titleVariant: 'klaviyo',
+    showLogoCarousel: false
+  },
+  featuresHeader: {
+    title: 'Klaviyo E-Mail Marketing Expertise',
+    description: 'Professionelle Klaviyo-Entwicklung für intelligente E-Mail Automatisierung',
+    iconName: 'zap'
   },
   features: [
     {
-      title: 'Abandoned Cart Workflows',
-      description: 'Automatisierte E-Mails für verlorene Warenkörbe - steigern Sie Ihre Conversion-Rate.',
-      icon: 'cart',
-      variant: 'default'
+      title: 'Klaviyo Setup & Integration',
+      description: 'Fundament schaffen – technisch sauber, strategisch stark.',
+      details: [
+        'Konto- & Domain-Einrichtung',
+        'DSGVO-konforme DOI-Logik',
+        'Template-System & Branding',
+        'Integration mit Shopify, Plenty & Co.'
+      ],
+      icon: 'settings',
+      variant: 'card'
     },
     {
-      title: 'Welcome Series',
-      description: 'Willkommens-E-Mails, die neue Kunden begeistern und zur ersten Bestellung führen.',
-      icon: 'welcome',
-      variant: 'default'
-    },
-    {
-      title: 'Post-Purchase Flows',
-      description: 'Nachkauf-Automatisierung für Upselling und Kundenbindung.',
-      icon: 'purchase',
-      variant: 'default'
+      title: 'Komplexe Flow-Entwicklung',
+      description: 'Automatisierung, die Umsatz bringt.',
+      details: [
+        'Welcome Flow mit Coupon-Logik',
+        'Abandoned Cart / Browse Recovery',
+        'Post-Purchase Journey & Cross-Sell',
+        'Review Request & Customer Winback'
+      ],
+      icon: 'workflow',
+      variant: 'card'
     },
     {
       title: 'Segmentierung & Personalisierung',
-      description: 'Intelligente Kundensegmentierung für personalisierte E-Mail-Kampagnen.',
+      description: 'Relevante Inhalte für jede Zielgruppe.',
+      details: [
+        'Dynamische Segmente nach Verhalten',
+        'RFM- & Event-basierte Zielgruppen',
+        'Sprache, Region & Produkttyp',
+        'Predictive Analytics & CLV-Strategien'
+      ],
       icon: 'segmentation',
-      variant: 'default'
+      variant: 'card'
+    },
+    {
+      title: 'Custom Coding & Erweiterungen',
+      description: 'Mehr als Standard – maßgeschneidert.',
+      details: [
+        'Individuelle Templates mit Liquid & HTML',
+        'Custom Events & Trigger',
+        'Externe Datenquellen & Trigger',
+        'Integration von externen Tools & APIs'
+      ],
+      icon: 'expertise',
+      variant: 'card'
+    },
+    {
+      title: 'Reporting & Optimierung',
+      description: 'Analyse, A/B-Tests und ständige Verbesserung.',
+      details: [
+        'Flow-Performance & Benchmarks',
+        'A/B-Testing von Betreffzeilen & Inhalten',
+        'Conversion Tracking & Attribution',
+        'Strategische Weiterentwicklung'
+      ],
+      icon: 'barchart',
+      variant: 'card'
+    },
+    {
+      title: 'Personalisierte Inhalte & Templates',
+      description: 'Templates, die Markenstärke und Relevanz kombinieren.',
+      details: [
+        'Dynamische Inhalte je nach Zielgruppe',
+        'Produktempfehlungen & Verfügbarkeiten',
+        'Rabatt- & Treue-Komponenten',
+        'Mobile-optimiertes, CI-konformes Design'
+      ],
+      icon: 'mail',
+      variant: 'card'
     }
   ],
   experience: true,
   contact: true,
   footer: true,
   openGraph: {
-    title: 'Klaviyo Automatisierung | E-Mail Marketing Experte',
-    description: 'Professionelle Klaviyo Automatisierung für Ihr E-Mail Marketing. Steigern Sie Ihre Conversion-Raten mit intelligenten Workflows.',
+    title: 'Klaviyo E-Mail Marketing für ambitionierte E-Commerce Brands | Yannic Nandy',
+    description: 'Von der Ersteinrichtung bis zur automatisierten Kundenbindung – ich entwickle leistungsstarke Klaviyo Setups, die verkaufen.',
     url: 'https://yannicnandy.com/klaviyo-automation',
     type: 'website'
   }

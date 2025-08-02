@@ -23,7 +23,12 @@ export default function BaseTemplate({ pageData }: BaseTemplateProps) {
       
       {/* Features-Sektion für andere Seiten */}
       {pageData.features && pageData.features.length > 0 && (
-        <FeatureVariants features={pageData.features} />
+        <FeatureVariants 
+          features={pageData.features} 
+          title={pageData.featuresHeader?.title}
+          description={pageData.featuresHeader?.description}
+          iconName={pageData.featuresHeader?.iconName}
+        />
       )}
       
       {/* {pageData.about && <About />} */}

@@ -72,7 +72,7 @@ const services: ServiceCard[] = [
       "Performance-Optimierung",
       "SEO & Conversion-Optimierung"
     ],
-    color: "#96C93F",
+          color: "#9ebe59",
     gradient: "from-green-400 to-green-600",
     size: "large",
     featured: true
@@ -88,7 +88,7 @@ const services: ServiceCard[] = [
       "API-Integrationen zu Drittanbietern",
       "Automatisierte Datenflüsse"
     ],
-    color: "#0071BC",
+          color: "#0f2532",
     gradient: "from-blue-400 to-blue-600",
     size: "large"
   },
@@ -103,7 +103,7 @@ const services: ServiceCard[] = [
       "Custom Coding & Templates",
       "Segmentierung & Personalisierung"
     ],
-    color: "#FF6900",
+          color: "#e76e5b",
     gradient: "from-orange-400 to-orange-600",
     size: "medium"
   },
