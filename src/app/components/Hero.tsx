@@ -19,6 +19,29 @@ const Hero = () => {
   const [activeSection, setActiveSection] = useState<string>("");
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Handle body scroll lock when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
+  // Handle escape key to close mobile menu
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileOpen) {
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [mobileOpen]);
+
   // Tool logos based on dark mode
   const toolLogos = [
     { src: isDarkMode ? "/Media/shopify_monotone_white.svg" : "/Media/shopify_monotone_black.svg", alt: "Shopify" },
@@ -320,29 +343,67 @@ const Hero = () => {
             <button
               aria-label="Menü öffnen"
               className="p-2 rounded-md hover:bg-[#cda967]/10 transition-colors"
-              onClick={() => setMobileOpen((v) => !v)}
+              onClick={() => setMobileOpen(true)}
             >
               <svg className="h-6 w-6 text-[#cda967]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
-          {/* Dropdown */}
-          {mobileOpen && (
-            <div className={`absolute top-14 left-1/2 -translate-x-1/2 mt-2 rounded-2xl shadow-2xl border border-[#cda967]/20 flex flex-col items-stretch min-w-[240px] z-50 animate-fadeIn transition-colors duration-300 ${isDarkMode ? 'bg-black/95' : 'bg-white/95'} backdrop-blur-sm`}>
+        </div>
+
+        {/* Mobile Slide-Out Menu */}
+        {/* Overlay */}
+        <div 
+          className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] lg:hidden transition-opacity duration-300 ${
+            mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
+          onClick={() => setMobileOpen(false)}
+        />
+        
+        {/* Slide-Out Panel */}
+        <div className={`fixed top-0 right-0 h-full w-[85%] max-w-[380px] z-[9999] lg:hidden transform transition-transform duration-300 ease-out ${
+          mobileOpen ? 'translate-x-0' : 'translate-x-full'
+        } ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'} shadow-2xl`}
+        style={{ pointerEvents: mobileOpen ? 'auto' : 'none' }}
+        >
+          
+          {/* Header with Close Button */}
+          <div className="flex items-center justify-between p-6 border-b border-[#cda967]/20">
+            <h2 className="text-xl font-bold text-[#cda967]">Navigation</h2>
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="p-2 rounded-lg hover:bg-[#cda967]/10 transition-colors"
+              aria-label="Menü schließen"
+            >
+              <svg className="h-6 w-6 text-[#cda967]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Navigation Content */}
+          <div className="overflow-y-auto h-[calc(100%-88px)] pb-6">{/* Hier kommt der Inhalt */}
+            <div className="p-6 space-y-4">
               {menuLinks.map((link) => {
                 if (link.label === "Leistungen") {
                   return (
-                    <div key={link.href} className="px-4 py-2">
-                      <div className={`px-2 py-2 text-base font-medium text-center ${activeSection === link.href.replace('#','') ? "bg-[#cda967]/20 font-semibold text-[#cda967] shadow rounded-xl" : `${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}`}>
+                    <div key={link.href} className="space-y-4">
+                      <div className={`text-lg font-semibold px-6 py-3 ${activeSection === link.href.replace('#','') ? "text-[#cda967]" : `${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}`}>
                         {link.label}
                       </div>
-                      <div className="mt-2 space-y-1">
+                      <div className="space-y-2">
                         {services.map((service) => (
                           <a
                             key={service.id}
                             href={service.href}
-                            className={`group block p-3 rounded-xl transition-all duration-200 hover:bg-[#cda967]/10 border border-transparent hover:border-[#cda967]/20`}
+                            className="group block px-6 py-4 transition-all duration-200 relative overflow-hidden cursor-pointer"
+                            style={{
+                              backgroundColor: `${service.color}08`,
+                              borderLeft: `4px solid ${service.color}`,
+                              pointerEvents: 'auto',
+                              touchAction: 'manipulation'
+                            }}
                             onClick={e => {
                               setMobileOpen(false);
                               if (service.href.startsWith('#')) {
@@ -356,22 +417,34 @@ const Hero = () => {
                               }
                             }}
                           >
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-4">
                               <div className="flex-shrink-0">
                                 <img
                                   src={service.logo}
                                   alt={service.title}
-                                  className="w-6 h-3 object-contain"
+                                  className="w-8 h-8 object-contain"
                                 />
                               </div>
-                              <div className="flex-1 min-w-0 text-left">
-                                <div className={`font-medium text-sm group-hover:text-[#cda967] transition-colors ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}>
+                              <div className="flex-1">
+                                <div 
+                                  className="font-semibold text-base"
+                                  style={{ color: service.color }}
+                                >
                                   {service.title}
                                 </div>
-                                <div className={`text-xs mt-0.5 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                <div className={`text-sm mt-0.5 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                                   {service.description}
                                 </div>
                               </div>
+                              <svg 
+                                className={`w-5 h-5 transition-transform group-hover:translate-x-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`} 
+                                fill="none" 
+                                viewBox="0 0 24 24" 
+                                strokeWidth={2} 
+                                stroke="currentColor"
+                              >
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                              </svg>
                             </div>
                           </a>
                         ))}
@@ -383,13 +456,12 @@ const Hero = () => {
                     <a
                       key={link.href}
                       href={link.href}
-                      className={
-                        `px-6 py-3 text-base font-medium rounded-2xl transition-colors text-center ` +
-                        (activeSection === link.href.replace('#','')
-                          ? "bg-[#cda967]/20 font-semibold text-[#cda967] shadow"
-                          : `${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'} hover:bg-[#cda967]/10 hover:text-[#cda967]`)
-                      }
-                      style={{ fontFamily: 'inherit' }}
+                      className={`block px-6 py-4 text-lg font-medium transition-all duration-200 cursor-pointer ${
+                        activeSection === link.href.replace('#','')
+                          ? "text-[#cda967] bg-[#cda967]/10 border-l-4 border-[#cda967]"
+                          : `${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'} hover:bg-[#cda967]/5 hover:text-[#cda967] border-l-4 border-transparent`
+                      }`}
+                      style={{ pointerEvents: 'auto', touchAction: 'manipulation' }}
                       onClick={e => {
                         e.preventDefault();
                         setMobileOpen(false);
@@ -407,7 +479,7 @@ const Hero = () => {
                 }
               })}
             </div>
-          )}
+          </div>
         </div>
       </div>
       {/* Hero Content */}
