@@ -578,7 +578,7 @@ const DynamicHero = ({ config }: DynamicHeroProps) => {
           <h1
             className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-3 leading-tight ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
             style={{ fontFamily: 'inherit' }}
-            dangerouslySetInnerHTML={{ __html: (config.title || '') }}
+            dangerouslySetInnerHTML={{ __html: processTitle(config.title || '', config.titleVariant) }}
           />
           <div className="mb-4 sm:mb-6">
             <div
