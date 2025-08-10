@@ -13,7 +13,7 @@ export const homeData: PageData = {
     'E-Commerce Automatisierung'
   ],
   hero: {
-    title: 'Freelancer für <span style="color: #cda967;">skalierbare E-Commerce-Systeme</span>.',
+    title: 'Freelance Partner <br> für E-Commerce-Systeme <br>& Automatisierung.',
     subtitle: '',
     description: 'Shopify, PlentyONE, klaviyo & n8n – von Setup bis Automatisierung.',
     ctaText: 'Kontakt aufnehmen',

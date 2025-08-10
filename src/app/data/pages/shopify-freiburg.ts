@@ -39,7 +39,7 @@ export const shopifyFreiburgData: PageData = {
       description: 'Modernisierung Ihres bestehenden Shopify Stores mit neuem Design, verbesserter User Experience, Performance-Optimierung und aktuellen E-Commerce Best Practices.',
       icon: 'performance',
       variant: 'card'
-    },
+    }, 
     {
       title: 'Shop Optimierung',
       description: 'Kontinuierliche Optimierung für höhere Conversion Rates, bessere Performance, verbesserte SEO-Rankings und erhöhte Umsätze durch datenbasierte Verbesserungen.',

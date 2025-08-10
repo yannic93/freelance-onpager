@@ -18,8 +18,7 @@ const DynamicHero = ({ config }: DynamicHeroProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
-  const marqueeRef = useRef<HTMLDivElement>(null);
-  const [marqueeWidth, setMarqueeWidth] = useState(0);
+  
   const [activeSection, setActiveSection] = useState<string>("");
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -157,22 +156,7 @@ const DynamicHero = ({ config }: DynamicHeroProps) => {
     }
   ];
 
-  useEffect(() => {
-    if (marqueeRef.current) {
-      setMarqueeWidth(marqueeRef.current.offsetWidth);
-    }
-    // Re-calc on window resize
-    const handleResize = () => {
-      if (marqueeRef.current) {
-        setMarqueeWidth(marqueeRef.current.offsetWidth);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // Animation duration: 100px = 2s, min 10s
-  const duration = Math.max(10, (marqueeWidth / 100) * 2);
+  
 
   // Scrollspy für aktive Sektion
   useEffect(() => {
@@ -207,6 +191,7 @@ const DynamicHero = ({ config }: DynamicHeroProps) => {
       className="min-h-screen w-full flex flex-col items-center font-sans transition-colors duration-300" 
       style={{ 
         backgroundColor: 'var(--section-bg-primary)',
+        backgroundImage: `radial-gradient(circle at top, ${isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)'}, transparent 60%)`,
         color: isDarkMode ? '#ededed' : '#1A1A1A' 
       }}
     >
@@ -579,115 +564,97 @@ const DynamicHero = ({ config }: DynamicHeroProps) => {
         </div>
       </div>
       {/* Hero Content */}
-      <div className="flex-1 flex flex-col justify-center items-center text-center px-2 sm:px-4 pt-32 pb-16 w-full max-w-full overflow-x-hidden">
-        <div className="mb-4 sm:mb-6 flex justify-center w-full">
-          <span className={`inline-flex items-center gap-2 rounded-md border border-[#cda967]/40 px-2 sm:px-3 py-1 text-xs sm:text-sm font-mono shadow-sm transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}
-            style={{maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word'}}>
-            <span className="inline-block w-2 h-2 rounded-full" style={{ background: '#FFD600' }}></span>
-            Begrenzt verfügbar - gerne Anfragen
-          </span>
-        </div>
-        <h1 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 max-w-full sm:max-w-3xl leading-tight transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
-          style={{ fontFamily: 'inherit', maxWidth: '75vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
-          dangerouslySetInnerHTML={{ __html: processTitle(config.title, config.titleVariant) }}
-        />
-        {config.subtitle && (
-          <h2 className={`text-lg sm:text-xl md:text-2xl font-semibold mb-2 sm:mb-4 max-w-full sm:max-w-3xl leading-relaxed transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
-            style={{ fontFamily: 'inherit', maxWidth: '85vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
-            dangerouslySetInnerHTML={{ __html: config.subtitle || '' }}
+      <div className="flex-1 flex flex-col justify-center items-stretch text-left px-6 sm:px-8 pt-32 pb-16 w-full max-w-full overflow-x-hidden">
+        <div className="w-full max-w-[900px] mx-auto">
+          <div className="mb-4 sm:mb-6">
+            <span
+              className={`${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'} inline-flex items-center gap-2 rounded-full border border-[#cda967]/40 px-3 py-1 text-xs sm:text-sm font-mono shadow-sm transition-colors`}
+            >
+              <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: '#FFD600', boxShadow: '0 0 8px #FFD600' }} />
+              Begrenzt verfügbar - gerne Anfragen
+            </span>
+          </div>
+
+          <h1
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-3 leading-tight ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
+            style={{ fontFamily: 'inherit' }}
+            dangerouslySetInnerHTML={{ __html: (config.title || '') }}
           />
-        )}
-        {config.description && (
-          <p className={`text-base sm:text-lg md:text-xl max-w-full sm:max-w-2xl mx-auto mb-4 sm:mb-6 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
-            style={{ fontFamily: 'inherit', maxWidth: '80vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
-            {config.description}
-          </p>
-        )}
-        {/* Toolstack Logos Marquee - optional */}
-        {config.showLogoCarousel !== false && (
-          <div className="relative flex justify-center items-center mb-6 sm:mb-8 w-full max-w-full overflow-x-hidden" style={{ maxWidth: 480 }}>
-            {/* Gradient Overlays */}
-            <div className="pointer-events-none absolute left-0 top-0 h-full w-8 sm:w-12 z-10" style={{background: `linear-gradient(to right, ${isDarkMode ? '#0a0a0a' : '#fff'} 70%, transparent)`}} />
-            <div className="pointer-events-none absolute right-0 top-0 h-full w-8 sm:w-12 z-10" style={{background: `linear-gradient(to left, ${isDarkMode ? '#0a0a0a' : '#fff'} 70%, transparent)`}} />
-            <div className="overflow-x-hidden w-full">
-              <div
-                className="flex gap-6 sm:gap-10 py-2 whitespace-nowrap"
-                ref={marqueeRef}
-                style={{
-                  display: 'inline-flex',
-                  animation: marqueeWidth
-                    ? `marquee ${duration}s linear infinite`
-                    : undefined,
-                  minWidth: marqueeWidth ? marqueeWidth * 2 : undefined,
-                  willChange: 'transform',
-                  maxWidth: '100vw',
+          <div className="mb-4 sm:mb-6">
+            <div
+              className="h-1.5 w-24 sm:w-32 md:w-40 rounded-full"
+              style={{
+                background: 'linear-gradient(90deg, #cda967, #b8955a)',
+                boxShadow: '0 4px 14px rgba(205,169,103,0.35)'
+              }}
+            />
+          </div>
+
+          {config.subtitle && (
+            <h2
+              className={`text-lg sm:text-xl md:text-2xl font-semibold mb-2 sm:mb-4 leading-relaxed ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}
+              style={{ fontFamily: 'inherit' }}
+              dangerouslySetInnerHTML={{ __html: config.subtitle || '' }}
+            />
+          )}
+
+          {config.description && (
+            <p
+              className={`text-base sm:text-lg md:text-xl max-w-[700px] mb-6 sm:mb-8 ${isDarkMode ? 'text-white/80' : 'text-[#1A1A1A]/80'}`}
+              style={{ fontFamily: 'inherit' }}
+            >
+              {config.description}
+            </p>
+          )}
+
+          <div className="cta mb-8 sm:mb-10 flex flex-wrap gap-3 sm:gap-4">
+            {config.ctaText && config.ctaLink && (
+              <a
+                href={config.ctaLink}
+                className={getCtaClasses(config.ctaVariant)}
+                onClick={e => {
+                  e.preventDefault();
+                  if (config.ctaLink) {
+                    const el = document.getElementById(config.ctaLink.replace('#', ''));
+                    if (el) {
+                      const y = el.getBoundingClientRect().top + window.scrollY - 110;
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                  }
                 }}
               >
-                {toolLogos.map((logo, i) => (
-                  <img
-                    key={i}
-                    src={logo.src}
-                    alt={logo.alt}
-                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity duration-200 max-w-[80px] sm:max-w-[120px]"
-                    draggable="false"
-                    style={{ userSelect: 'none', maxWidth: '20vw' }}
-                  />
-                ))}
-                {toolLogos.map((logo, i) => (
-                  <img
-                    key={toolLogos.length + i}
-                    src={logo.src}
-                    alt={logo.alt}
-                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity duration-200 max-w-[80px] sm:max-w-[120px]"
-                    draggable="false"
-                    style={{ userSelect: 'none', maxWidth: '20vw' }}
-                  />
-                ))}
-              </div>
-            </div>
-            <style>{`
-              @keyframes marquee {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-${marqueeWidth}px); }
-              }
-            `}</style>
-          </div>
-        )}
-        <div className="flex flex-wrap gap-2 sm:gap-4 justify-center w-full max-w-full">
-          {config.ctaText && config.ctaLink && (
+                {config.ctaText} <span className="text-xl">→</span>
+              </a>
+            )}
             <a
-              href={config.ctaLink}
-              className={getCtaClasses(config.ctaVariant)}
-              style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
-                             onClick={e => {
-                 e.preventDefault();
-                 if (config.ctaLink) {
-                   const el = document.getElementById(config.ctaLink.replace('#', ''));
-                   if (el) {
-                     const y = el.getBoundingClientRect().top + window.scrollY - 110; // 110px Offset für Stickybar
-                     window.scrollTo({ top: y, behavior: 'smooth' });
-                   }
-                 }
-               }}
+              href="#experience"
+              className={`inline-flex items-center gap-2 rounded-xl border border-[#cda967]/40 px-5 sm:px-7 py-2 sm:py-3 text-base sm:text-lg font-semibold hover:bg-[#cda967]/10 hover:text-[#cda967] transition-all duration-300 hover:scale-105 hover:shadow-lg ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}
+              onClick={e => {
+                e.preventDefault();
+                const el = document.getElementById('experience');
+                if (el) {
+                  const y = el.getBoundingClientRect().top + window.scrollY - 110;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+              }}
             >
-              {config.ctaText} <span className="text-xl">→</span>
+              CV <span className="text-xl">↓</span>
             </a>
+          </div>
+
+          {config.showLogoCarousel !== false && (
+            <div className="logos flex items-center gap-5 sm:gap-6 md:gap-7 flex-wrap">
+              {toolLogos.map((logo, i) => (
+                <img
+                  key={i}
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="h-6 sm:h-7 md:h-8 w-auto"
+                  draggable="false"
+                />
+              ))}
+            </div>
           )}
-          <a
-            href="#experience"
-            className={`inline-flex items-center gap-2 rounded-xl border border-[#cda967]/40 px-5 sm:px-7 py-2 sm:py-3 text-base sm:text-lg font-semibold hover:bg-[#cda967]/10 hover:text-[#cda967] transition-all duration-300 hover:scale-105 hover:shadow-lg max-w-full ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}
-            style={{ fontFamily: 'inherit', maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}
-            onClick={e => {
-              e.preventDefault();
-              const el = document.getElementById('experience');
-              if (el) {
-                const y = el.getBoundingClientRect().top + window.scrollY - 110; // 110px Offset für Stickybar
-                window.scrollTo({ top: y, behavior: 'smooth' });
-              }
-            }}
-          >
-            CV <span className="text-xl">↓</span>
-          </a>
         </div>
       </div>
     </div>
