@@ -138,7 +138,7 @@ const About = () => {
                     <span className={`font-semibold ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>                      Verfügbarkeit
                     </span>
                   </div>
-                  <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>                    Begrenzt verfügbar - gerne Anfragen
+                  <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>                    Begrenzt verfügbar - gerne anfragen
                   </p>
                 </div>
               </div>

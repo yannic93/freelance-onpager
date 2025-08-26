@@ -13,9 +13,9 @@ export const homeData: PageData = {
     'E-Commerce Automatisierung'
   ],
   hero: {
-    title: 'Freelance Partner <br> für E-Commerce-Systeme <br>& Automatisierung.',
+    title: 'Freelance Partner <br> für E-Commerce-Systeme <br>& KI-Automatisierung.',
     subtitle: '',
-    description: 'Shopify, PlentyONE, klaviyo & n8n – von Setup bis Automatisierung.',
+    description: 'Shopify, PlentyONE, klaviyo & n8n – von Beratung bis Setup & Betreuung',
     ctaText: 'Kontakt aufnehmen',
     ctaLink: '#contact',
     variant: 'default'
