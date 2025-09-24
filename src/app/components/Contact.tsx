@@ -236,7 +236,7 @@ const Contact = () => {
             E-Mail
           </a>
           <a
-            href="https://wa.me/4915569260927"
+            href="https://wa.me/4915566709302"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-3 rounded-full border-2 border-[#cda967] text-[#cda967] bg-white px-6 py-3 font-semibold text-base shadow-lg hover:bg-[#f5efe6] hover:shadow-xl transition-all duration-200 transform hover:scale-105"
