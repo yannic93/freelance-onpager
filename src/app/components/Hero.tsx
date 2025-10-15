@@ -487,8 +487,11 @@ const Hero = () => {
         <div className="mb-4 sm:mb-6 flex justify-center w-full">
           <span className={`inline-flex items-center gap-2 rounded-md border border-[#cda967]/40 px-2 sm:px-3 py-1 text-xs sm:text-sm font-mono shadow-sm transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}
             style={{maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word'}}>
-            <span className="inline-block w-2 h-2 rounded-full" style={{ background: '#FFD600' }}></span>
-            Begrenzt verfügbar - gerne anfragen
+            <span className="relative inline-flex w-2 h-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]"></span>
+              <span className="relative inline-flex w-2 h-2 rounded-full bg-[#10B981]"></span>
+            </span>
+            Kapazitäten frei - gerne anfragen.
           </span>
         </div>
         <h1 className={`text-2xl xs:text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 sm:mb-6 max-w-full sm:max-w-3xl leading-tight transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}

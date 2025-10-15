@@ -570,8 +570,11 @@ const DynamicHero = ({ config }: DynamicHeroProps) => {
             <span
               className={`${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'} inline-flex items-center gap-2 rounded-full border border-[#cda967]/40 px-3 py-1 text-xs sm:text-sm font-mono shadow-sm transition-colors`}
             >
-              <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: '#FFD600', boxShadow: '0 0 8px #FFD600' }} />
-              Begrenzt verfügbar - gerne anfragen
+              <span className="relative inline-flex w-2.5 h-2.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]"></span>
+                <span className="relative inline-flex w-2.5 h-2.5 rounded-full bg-[#10B981]"></span>
+              </span>
+              Kapazitäten frei - gerne anfragen.
             </span>
           </div>
 
