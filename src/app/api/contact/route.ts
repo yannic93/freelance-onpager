@@ -1,15 +1,148 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
+// Rate Limiting - In-Memory Store (für Produktion: Redis verwenden)
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+
+// Rate Limit Konfiguration
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 Stunde in Millisekunden
+const MAX_REQUESTS_PER_WINDOW = 3; // Maximal 3 Anfragen pro Stunde pro IP
+
+// Hilfsfunktion: IP-Adresse extrahieren
+function getClientIp(request: NextRequest): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  const realIp = request.headers.get('x-real-ip');
+  
+  if (forwarded) {
+    return forwarded.split(',')[0].trim();
+  }
+  if (realIp) {
+    return realIp;
+  }
+  return 'unknown';
+}
+
+// Hilfsfunktion: Rate Limit prüfen
+function checkRateLimit(ip: string): { allowed: boolean; remainingRequests: number } {
+  const now = Date.now();
+  const limitData = rateLimitMap.get(ip);
+
+  if (!limitData || now > limitData.resetTime) {
+    // Neues Zeitfenster
+    rateLimitMap.set(ip, {
+      count: 1,
+      resetTime: now + RATE_LIMIT_WINDOW,
+    });
+    return { allowed: true, remainingRequests: MAX_REQUESTS_PER_WINDOW - 1 };
+  }
+
+  if (limitData.count >= MAX_REQUESTS_PER_WINDOW) {
+    return { allowed: false, remainingRequests: 0 };
+  }
+
+  // Request zählen
+  limitData.count++;
+  return { allowed: true, remainingRequests: MAX_REQUESTS_PER_WINDOW - limitData.count };
+}
+
+// Cleanup alte Einträge (alle 10 Minuten)
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, data] of rateLimitMap.entries()) {
+    if (now > data.resetTime) {
+      rateLimitMap.delete(ip);
+    }
+  }
+}, 10 * 60 * 1000);
+
+// Hilfsfunktion: E-Mail-Validierung
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, message, services } = await request.json();
+    // 1. Rate Limiting prüfen
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(clientIp);
 
-    // Validierung
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: 'Zu viele Anfragen. Bitte versuche es später erneut.' },
+        { status: 429 }
+      );
+    }
+
+    const { name, email, message, services, timestamp } = await request.json();
+
+    // 2. Basis-Validierung
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Alle Felder sind erforderlich' },
         { status: 400 }
+      );
+    }
+
+    // 3. E-Mail-Format validieren
+    if (!isValidEmail(email)) {
+      return NextResponse.json(
+        { error: 'Ungültige E-Mail-Adresse' },
+        { status: 400 }
+      );
+    }
+
+    // 4. Längen-Validierung (Spam-Schutz)
+    if (name.length > 100) {
+      return NextResponse.json(
+        { error: 'Name ist zu lang' },
+        { status: 400 }
+      );
+    }
+
+    if (email.length > 100) {
+      return NextResponse.json(
+        { error: 'E-Mail ist zu lang' },
+        { status: 400 }
+      );
+    }
+
+    if (message.length < 10) {
+      return NextResponse.json(
+        { error: 'Nachricht ist zu kurz' },
+        { status: 400 }
+      );
+    }
+
+    if (message.length > 5000) {
+      return NextResponse.json(
+        { error: 'Nachricht ist zu lang' },
+        { status: 400 }
+      );
+    }
+
+    // 5. Zeitbasierte Validierung (Server-seitig)
+    if (timestamp) {
+      const timeSpent = (Date.now() - timestamp) / 1000;
+      if (timeSpent < 2 || timeSpent > 3600) {
+        // Zu schnell (<2s) oder zu langsam (>1h)
+        return NextResponse.json(
+          { error: 'Ungültige Anfrage' },
+          { status: 400 }
+        );
+      }
+    }
+
+    // 6. Spam-Keywords prüfen
+    const spamKeywords = ['viagra', 'casino', 'lottery', 'prize', 'click here', 'free money'];
+    const content = `${name} ${email} ${message}`.toLowerCase();
+    const hasSpam = spamKeywords.some(keyword => content.includes(keyword));
+
+    if (hasSpam) {
+      // Stille Ablehnung - keine Info an Spammer
+      return NextResponse.json(
+        { message: 'Nachricht erfolgreich gesendet!' },
+        { status: 200 }
       );
     }
 

@@ -9,6 +9,7 @@ const Contact = () => {
     email: "",
     message: "",
     services: [] as string[],
+    honeypot: "", // Spam-Schutz: Honeypot-Feld
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
@@ -16,6 +17,7 @@ const Contact = () => {
     message: string;
   }>({ type: null, message: "" });
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [formStartTime] = useState<number>(Date.now()); // Zeitbasierte Validierung
   const { isDarkMode } = useDarkMode();
 
   const serviceOptions = [
@@ -55,13 +57,42 @@ const Contact = () => {
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
+    // Client-seitige Spam-Prüfungen
+    // 1. Honeypot-Check
+    if (formData.honeypot) {
+      // Bot erkannt - stille Ablehnung
+      setSubmitStatus({
+        type: "success",
+        message: "Nachricht erfolgreich gesendet!",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // 2. Zeitbasierte Validierung (mindestens 3 Sekunden)
+    const timeSpent = (Date.now() - formStartTime) / 1000;
+    if (timeSpent < 3) {
+      setSubmitStatus({
+        type: "error",
+        message: "Bitte fülle das Formular sorgfältig aus.",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          services: formData.services,
+          timestamp: formStartTime,
+        }),
       });
 
       const data = await response.json();
@@ -71,7 +102,7 @@ const Contact = () => {
           type: "success",
           message: data.message,
         });
-        setFormData({ name: "", email: "", message: "", services: [] });
+        setFormData({ name: "", email: "", message: "", services: [], honeypot: "" });
       } else {
         setSubmitStatus({
           type: "error",
@@ -105,6 +136,24 @@ const Contact = () => {
           backgroundColor: 'var(--card-bg)',
           border: `1px solid var(--card-border)`
         }}>
+          {/* Honeypot-Feld (versteckt für echte Nutzer) */}
+          <input
+            type="text"
+            name="honeypot"
+            value={formData.honeypot}
+            onChange={handleInputChange}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              left: '-9999px',
+              width: '1px',
+              height: '1px',
+              opacity: 0,
+            }}
+          />
+          
           <input
             type="text"
             name="name"
