@@ -149,13 +149,18 @@ export async function POST(request: NextRequest) {
     // Resend Integration
     const resend = new Resend(process.env.RESEND_API_KEY);
     const subject = `Neue Kontaktanfrage von ${name}`;
+    const berlinTime = new Date().toLocaleString('de-DE', { 
+      timeZone: 'Europe/Berlin',
+      dateStyle: 'full',
+      timeStyle: 'short'
+    });
     const html = `
       <h2>Neue Kontaktanfrage</h2>
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>E-Mail:</strong> ${email}</p>
       <p><strong>Nachricht:</strong><br/>${message.replace(/\n/g, '<br/>')}</p>
       ${services && services.length > 0 ? `<p><strong>Services:</strong><br/>${services.map((s: string) => `<li>${s}</li>`).join('')}</p>` : ''}
-      <p><small>Gesendet am: ${new Date().toLocaleString('de-DE')}</small></p>
+      <p><small>Gesendet am: ${berlinTime}</small></p>
     `;
 
     try {
