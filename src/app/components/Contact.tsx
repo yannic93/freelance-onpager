@@ -18,6 +18,12 @@ const Contact = () => {
   }>({ type: null, message: "" });
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [formStartTime] = useState<number>(Date.now()); // Zeitbasierte Validierung
+  const [showSourceModal, setShowSourceModal] = useState(false);
+  const [sourceData, setSourceData] = useState({
+    source: "",
+    sourceOther: "",
+  });
+  const [tempContactEmail, setTempContactEmail] = useState(""); // Email speichern für Source-Tracking
   const { isDarkMode } = useDarkMode();
 
   const serviceOptions = [
@@ -30,6 +36,13 @@ const Contact = () => {
     "Projektanfrage allgemein",
     "Technische Umsetzung",
     "UX / Conversion-Optimierung",
+    "Sonstiges",
+  ];
+
+  const sourceOptions = [
+    "Google Suche",
+    "LinkedIn",
+    "Empfehlung",
     "Sonstiges",
   ];
 
@@ -50,6 +63,25 @@ const Contact = () => {
         ? prev.services.filter((s) => s !== service)
         : [...prev.services, service],
     }));
+  };
+
+  const handleSourceSubmit = async () => {
+    try {
+      await fetch("/api/contact/source", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: tempContactEmail,
+          source: sourceData.source,
+          sourceOther: sourceData.source === "Sonstiges" ? sourceData.sourceOther : null,
+        }),
+      });
+    } catch (error) {
+      console.error("Source tracking error:", error);
+    } finally {
+      setShowSourceModal(false);
+      setSourceData({ source: "", sourceOther: "" });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -102,7 +134,13 @@ const Contact = () => {
           type: "success",
           message: data.message,
         });
+        setTempContactEmail(formData.email); // Email für Source-Tracking speichern
         setFormData({ name: "", email: "", message: "", services: [], honeypot: "" });
+        
+        // Modal nach 1 Sekunde öffnen
+        setTimeout(() => {
+          setShowSourceModal(true);
+        }, 1000);
       } else {
         setSubmitStatus({
           type: "error",
@@ -308,6 +346,87 @@ const Contact = () => {
           </a>
         </div>
       </div>
+
+      {/* Source Tracking Modal */}
+      {showSourceModal && (
+        <div 
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4"
+          onClick={() => setShowSourceModal(false)}
+        >
+          <div 
+            className={`rounded-2xl shadow-2xl p-8 max-w-md w-full transition-colors duration-300`}
+            style={{
+              backgroundColor: 'var(--card-bg)',
+              border: `1px solid var(--card-border)`
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-xl font-bold mb-4">
+              Eine kurze Frage noch... 🙂
+            </h3>
+            <p className={`mb-6 text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Wie hast du von mir erfahren? (Optional)
+            </p>
+            
+            <div className="flex flex-col gap-3 mb-6">
+              {sourceOptions.map((option) => (
+                <label
+                  key={option}
+                  className={`flex items-center px-4 py-3 rounded-lg cursor-pointer border transition-all ${
+                    sourceData.source === option
+                      ? 'border-[#cda967] bg-[#cda967]/10'
+                      : isDarkMode 
+                        ? 'border-gray-700 hover:border-[#cda967]/50' 
+                        : 'border-gray-300 hover:border-[#cda967]/50'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="source"
+                    value={option}
+                    checked={sourceData.source === option}
+                    onChange={(e) => setSourceData({ ...sourceData, source: e.target.value })}
+                    className="w-4 h-4 text-[#cda967] focus:ring-[#cda967]"
+                  />
+                  <span className="ml-3">{option}</span>
+                </label>
+              ))}
+            </div>
+
+            {sourceData.source === "Sonstiges" && (
+              <input
+                type="text"
+                placeholder="Bitte angeben..."
+                value={sourceData.sourceOther}
+                onChange={(e) => setSourceData({ ...sourceData, sourceOther: e.target.value })}
+                className={`w-full px-4 py-3 rounded-lg border border-[#cda967] mb-4 focus:outline-none focus:ring-2 focus:ring-[#cda967]/40 ${
+                  isDarkMode ? 'bg-[#2a2a2a] text-[#ededed] placeholder-gray-400' : 'bg-white text-[#1A1A1A]'
+                }`}
+              />
+            )}
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowSourceModal(false)}
+                className={`flex-1 py-3 rounded-lg font-semibold transition-colors ${
+                  isDarkMode 
+                    ? 'bg-gray-700 hover:bg-gray-600 text-gray-200' 
+                    : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+                }`}
+              >
+                Überspringen
+              </button>
+              <button
+                onClick={handleSourceSubmit}
+                disabled={!sourceData.source}
+                className="flex-1 bg-[#cda967] hover:bg-[#b8934e] text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Absenden
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
