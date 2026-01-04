@@ -45,9 +45,9 @@ const Hero = () => {
   // Tool logos based on dark mode
   const toolLogos = [
     { src: isDarkMode ? "/Media/shopify_monotone_white.svg" : "/Media/shopify_monotone_black.svg", alt: "Shopify" },
-    { src: isDarkMode ? "/Media/PlentyONE-logo-white.svg" : "/Media/PlentyONE-logo-blue.svg", alt: "Plentymarkets" },
     { src: isDarkMode ? "/Media/klaviyo_white.svg" : "/Media/klaviyo_black.svg", alt: "Klaviyo" },
     { src: "/Media/N8N.Io_idQ-KxEpHW_0.png", alt: "n8n" },
+    { src: "/Media/gorgias-Dark.svg", alt: "Gorgias" },
   ];
 
   // Services for dropdown
@@ -61,20 +61,28 @@ const Hero = () => {
       color: "#9ebe59"
     },
     {
-      id: "plentymarkets",
-      title: "PlentyONE",
-      description: "Systemverbindungen und Automatisierung",
-      href: "/plenty-one",
-      logo: isDarkMode ? "/Media/PlentyONE-logo-white.svg" : "/Media/PlentyONE-logo-blue.svg",
-      color: "#0f2532"
-    },
-    {
       id: "klaviyo",
       title: "Klaviyo",
       description: "E-Mail Marketing Automatisierung",
       href: "/klaviyo-automation",
       logo: isDarkMode ? "/Media/klaviyo_white.svg" : "/Media/klaviyo_black.svg",
       color: "#e76e5b"
+    },
+    {
+      id: "gorgias",
+      title: "Gorgias",
+      description: "Customer Support Automatisierung",
+      href: "/gorgias-automation",
+      logo: "/Media/gorgias-Dark.svg",
+      color: "#FE8D78"
+    },
+    {
+      id: "plentymarkets",
+      title: "PlentyONE",
+      description: "Systemverbindungen und Automatisierung",
+      href: "/plenty-one",
+      logo: isDarkMode ? "/Media/PlentyONE-logo-white.svg" : "/Media/PlentyONE-logo-blue.svg",
+      color: "#0f2532"
     }
   ];
 
@@ -124,12 +132,12 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className={`min-h-screen w-full flex flex-col items-center font-sans transition-colors duration-300`} style={{ 
+    <div className={`min-h-screen w-full flex flex-col items-center font-sans transition-colors duration-300`} style={{
       backgroundColor: 'var(--section-bg-primary)',
-      color: isDarkMode ? '#ededed' : '#1A1A1A' 
+      color: isDarkMode ? '#ededed' : '#1A1A1A'
     }}>
       {/* Glassmorphism Stickybar mit Name links */}
-      <div className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none" style={{background: 'transparent'}}>
+      <div className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none" style={{ background: 'transparent' }}>
         {/* Desktop: normale Bar */}
         <nav
           className={`pointer-events-auto hidden lg:flex items-center justify-center gap-2 rounded-3xl shadow-2xl backdrop-blur px-6 py-3 mx-auto max-w-fit mt-4 transition-colors duration-300 ${isDarkMode ? 'bg-black/30' : 'bg-white/20'}`}
@@ -163,7 +171,7 @@ const Hero = () => {
                   <button
                     className={
                       `px-4 py-1.5 rounded-full text-base font-medium transition-colors flex items-center gap-1` +
-                      (activeSection === link.href.replace('#','')
+                      (activeSection === link.href.replace('#', '')
                         ? " bg-[#cda967]/20 font-semibold text-[#cda967] shadow"
                         : ` ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'} hover:bg-[#cda967]/10 hover:text-[#cda967]`)
                     }
@@ -177,10 +185,10 @@ const Hero = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
-                  
+
                   {/* Services Dropdown */}
                   {servicesDropdownOpen && (
-                    <div 
+                    <div
                       className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-0 w-80 rounded-2xl shadow-2xl border border-[#cda967]/20 transition-colors duration-300 ${isDarkMode ? 'bg-black/95' : 'bg-white/95'} backdrop-blur-sm`}
                       style={{ zIndex: 9999, marginTop: '4px' }}
                       onMouseEnter={() => {
@@ -225,20 +233,20 @@ const Hero = () => {
                               }}
                             >
                               {/* Service color accent */}
-                              <div 
+                              <div
                                 className="absolute top-0 left-0 right-0 h-1 transition-all duration-300 group-hover:opacity-100"
                                 style={{
                                   backgroundColor: service.color,
                                   opacity: 0.4
                                 }}
                               />
-                              
+
                               <div className="p-4">
                                 <div className="flex items-center gap-3">
                                   {/* Logo container with colored background */}
-                                  <div 
+                                  <div
                                     className="flex-shrink-0 p-3 rounded-lg transition-colors duration-300"
-                                    style={{ 
+                                    style={{
                                       backgroundColor: `${service.color}15`
                                     }}
                                   >
@@ -278,14 +286,14 @@ const Hero = () => {
                   href={link.href}
                   className={
                     `px-4 py-1.5 rounded-full text-base font-medium transition-colors` +
-                    (activeSection === link.href.replace('#','')
+                    (activeSection === link.href.replace('#', '')
                       ? " bg-[#cda967]/20 font-semibold text-[#cda967] shadow"
                       : ` ${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'} hover:bg-[#cda967]/10 hover:text-[#cda967]`)
                   }
                   style={{ fontFamily: 'inherit' }}
                   onClick={e => {
                     e.preventDefault();
-                    const id = link.href.replace('#','');
+                    const id = link.href.replace('#', '');
                     const el = document.getElementById(id);
                     if (el) {
                       const y = el.getBoundingClientRect().top + window.scrollY - 110; // 110px Offset für Stickybar
@@ -354,20 +362,18 @@ const Hero = () => {
 
         {/* Mobile Slide-Out Menu */}
         {/* Overlay */}
-        <div 
-          className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] lg:hidden transition-opacity duration-300 ${
-            mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-          }`}
+        <div
+          className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] lg:hidden transition-opacity duration-300 ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            }`}
           onClick={() => setMobileOpen(false)}
         />
-        
+
         {/* Slide-Out Panel */}
-        <div className={`fixed top-0 right-0 h-full w-[85%] max-w-[380px] z-[9999] lg:hidden transform transition-transform duration-300 ease-out ${
-          mobileOpen ? 'translate-x-0' : 'translate-x-full'
-        } ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'} shadow-2xl`}
-        style={{ pointerEvents: mobileOpen ? 'auto' : 'none' }}
+        <div className={`fixed top-0 right-0 h-full w-[85%] max-w-[380px] z-[9999] lg:hidden transform transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'
+          } ${isDarkMode ? 'bg-[#0a0a0a]' : 'bg-white'} shadow-2xl`}
+          style={{ pointerEvents: mobileOpen ? 'auto' : 'none' }}
         >
-          
+
           {/* Header with Close Button */}
           <div className="flex items-center justify-between p-6 border-b border-[#cda967]/20">
             <h2 className="text-xl font-bold text-[#cda967]">Navigation</h2>
@@ -389,7 +395,7 @@ const Hero = () => {
                 if (link.label === "Leistungen") {
                   return (
                     <div key={link.href} className="space-y-4">
-                      <div className={`text-lg font-semibold px-6 py-3 ${activeSection === link.href.replace('#','') ? "text-[#cda967]" : `${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}`}>
+                      <div className={`text-lg font-semibold px-6 py-3 ${activeSection === link.href.replace('#', '') ? "text-[#cda967]" : `${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'}`}`}>
                         {link.label}
                       </div>
                       <div className="space-y-2">
@@ -426,7 +432,7 @@ const Hero = () => {
                                 />
                               </div>
                               <div className="flex-1">
-                                <div 
+                                <div
                                   className="font-semibold text-base"
                                   style={{ color: service.color }}
                                 >
@@ -436,11 +442,11 @@ const Hero = () => {
                                   {service.description}
                                 </div>
                               </div>
-                              <svg 
-                                className={`w-5 h-5 transition-transform group-hover:translate-x-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`} 
-                                fill="none" 
-                                viewBox="0 0 24 24" 
-                                strokeWidth={2} 
+                              <svg
+                                className={`w-5 h-5 transition-transform group-hover:translate-x-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={2}
                                 stroke="currentColor"
                               >
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -456,16 +462,15 @@ const Hero = () => {
                     <a
                       key={link.href}
                       href={link.href}
-                      className={`block px-6 py-4 text-lg font-medium transition-all duration-200 cursor-pointer ${
-                        activeSection === link.href.replace('#','')
-                          ? "text-[#cda967] bg-[#cda967]/10 border-l-4 border-[#cda967]"
-                          : `${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'} hover:bg-[#cda967]/5 hover:text-[#cda967] border-l-4 border-transparent`
-                      }`}
+                      className={`block px-6 py-4 text-lg font-medium transition-all duration-200 cursor-pointer ${activeSection === link.href.replace('#', '')
+                        ? "text-[#cda967] bg-[#cda967]/10 border-l-4 border-[#cda967]"
+                        : `${isDarkMode ? 'text-white' : 'text-[#1A1A1A]'} hover:bg-[#cda967]/5 hover:text-[#cda967] border-l-4 border-transparent`
+                        }`}
                       style={{ pointerEvents: 'auto', touchAction: 'manipulation' }}
                       onClick={e => {
                         e.preventDefault();
                         setMobileOpen(false);
-                        const id = link.href.replace('#','');
+                        const id = link.href.replace('#', '');
                         const el = document.getElementById(id);
                         if (el) {
                           const y = el.getBoundingClientRect().top + window.scrollY - 110;
@@ -486,7 +491,7 @@ const Hero = () => {
       <div className="flex-1 flex flex-col justify-center items-center text-center px-2 sm:px-4 pt-32 pb-16 w-full max-w-full overflow-x-hidden">
         <div className="mb-4 sm:mb-6 flex justify-center w-full">
           <span className={`inline-flex items-center gap-2 rounded-md border border-[#cda967]/40 px-2 sm:px-3 py-1 text-xs sm:text-sm font-mono shadow-sm transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-white text-[#1A1A1A]'}`}
-            style={{maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word'}}>
+            style={{ maxWidth: '100vw', overflowWrap: 'break-word', wordBreak: 'break-word' }}>
             <span className="relative inline-flex w-2 h-2">
               <span className="absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]"></span>
               <span className="relative inline-flex w-2 h-2 rounded-full bg-[#10B981]"></span>
@@ -505,8 +510,8 @@ const Hero = () => {
         {/* Toolstack Logos Marquee */}
         <div className="relative flex justify-center items-center mb-6 sm:mb-8 w-full max-w-full overflow-x-hidden" style={{ maxWidth: 480 }}>
           {/* Gradient Overlays */}
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-8 sm:w-12 z-10" style={{background: `linear-gradient(to right, ${isDarkMode ? '#0a0a0a' : '#fff'} 70%, transparent)`}} />
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-8 sm:w-12 z-10" style={{background: `linear-gradient(to left, ${isDarkMode ? '#0a0a0a' : '#fff'} 70%, transparent)`}} />
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-8 sm:w-12 z-10" style={{ background: `linear-gradient(to right, ${isDarkMode ? '#0a0a0a' : '#fff'} 70%, transparent)` }} />
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-8 sm:w-12 z-10" style={{ background: `linear-gradient(to left, ${isDarkMode ? '#0a0a0a' : '#fff'} 70%, transparent)` }} />
           <div className="overflow-x-hidden w-full">
             <div
               className="flex gap-6 sm:gap-10 py-2 whitespace-nowrap"
