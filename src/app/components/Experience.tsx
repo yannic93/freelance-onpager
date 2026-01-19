@@ -25,7 +25,7 @@ const workExperience = [
     logo: "/Media/iluxi_logo.jpeg",
     company: "ILUXI GmbH",
     period: "Hamburg, Mai 2023 – Dez 2023",
-    role: "E-Commerce Projektmanager" ,
+    role: "E-Commerce Projektmanager",
     description: [
       "Launch & Weiterentwicklung Shopify-Shop",
       "Klaviyo Automationen & CRM-Setup",
@@ -56,17 +56,16 @@ const workExperience = [
 const projectExperience = [
   {
     icon: <Rocket size={20} className="text-[#cda967]" />,
-    logo: "/Media/logo_awn_dklBla.png",
-    company: "awn GmbH | e-scalegroup",
-    period: "seit Mai 2024 – heute",
-    role: "Technischer E-Commerce Projektmanager",
+    logo: "/Media/KFB Logo.svg",
+    company: "Kreuzfahrtberater",
+    period: "seit Juni 2024 – heute",
+    role: "Projektmanager / E-Commerce & MarTech",
     description: [
-      "Zusammenführung und Standardisierung mehrerer ERP-Systeme zu einem konsistenten Plentymarkets Setup inklusive Datenstruktur, Schnittstellen und Mandantenlogik",
-      "Projektverantwortung für Amazon-Accounts inkl. Performance-Analyse, SEO/SEA-Optimierung und Steuerung der Kampagnen via Adference",
-      "Migration von Shopware zu Shopify, inklusive Planung, Datenübernahme und Template-Anpassung",
-      "Aufbau und Implementierung von Prozessautomatisierungen mit n8n",
+      "Optimierung der internen Marketingprozesse inkl. Einführung eines zentralen Projektmanagement-Tools zur teamübergreifenden Kollaboration",
+      "Entwicklung und Implementierung von KI-basierten Automationen im Frontend, z. B. dynamisch generierte Reisebeschreibungen und zusammengefasste Kundenbewertungen auf Basis von strukturierten Daten",
+      "Analyse und Optimierung des Buchungsprozesses (Booking Funnel) mit Fokus auf Conversion-Steigerung und User Experience",
     ],
-    tags: ["Plentymarkets", "Amazon Marketplace", "SEO / SEA", "Shop-Migration", "Shopify", "n8n Automation", "ERP-Integration", "Adference"],
+    tags: ["Projektmanagement", "n8n", "Meta Ads", "CRM", "KI-Agents"],
   },
   {
     icon: <Rocket size={20} className="text-[#cda967]" />,
@@ -85,23 +84,10 @@ const projectExperience = [
   },
   {
     icon: <Rocket size={20} className="text-[#cda967]" />,
-    logo: "/Media/KFB Logo.svg",
-    company: "Kreuzfahrtberater",
-    period: "seit Juni 2024 – heute",
-    role: "Projektmanager / E-Commerce & MarTech",
-    description: [
-      "Optimierung der internen Marketingprozesse inkl. Einführung eines zentralen Projektmanagement-Tools zur teamübergreifenden Kollaboration",
-      "Entwicklung und Implementierung von KI-basierten Automationen im Frontend, z. B. dynamisch generierte Reisebeschreibungen und zusammengefasste Kundenbewertungen auf Basis von strukturierten Daten",
-      "Analyse und Optimierung des Buchungsprozesses (Booking Funnel) mit Fokus auf Conversion-Steigerung und User Experience",
-    ],
-    tags: ["Projektmanagement", "n8n", "Meta Ads", "CRM", "KI-Agents"],
-  },
-  {
-    icon: <Rocket size={20} className="text-[#cda967]" />,
     logo: "/Media/bh-logo-small.svg",
     company: "Burnhard GmbH",
-    role:"Klaviyo Transaktionsmails & Tech Support",
-    period: "Feb 2024 – Apr 2024",
+    role: "Klaviyo Transaktionsmails & Tech Support",
+    period: "Feb 2024 – heute",
     description: [
       "Technische Integration transaktionaler E-Mails in Shopify & Klaviyo",
       "Automatisierung von Rechnungsversand, Versandtracking & Reviewflows (u. a. mit Judge.me)",
@@ -111,9 +97,23 @@ const projectExperience = [
   },
   {
     icon: <Rocket size={20} className="text-[#cda967]" />,
+    logo: "/Media/logo_awn_dklBla.png",
+    company: "awn GmbH | e-scalegroup",
+    period: "seit Mai 2024 – Dezember 2025",
+    role: "Technischer E-Commerce Projektmanager",
+    description: [
+      "Zusammenführung und Standardisierung mehrerer ERP-Systeme zu einem konsistenten Plentymarkets Setup inklusive Datenstruktur, Schnittstellen und Mandantenlogik",
+      "Projektverantwortung für Amazon-Accounts inkl. Performance-Analyse, SEO/SEA-Optimierung und Steuerung der Kampagnen via Adference",
+      "Migration von Shopware zu Shopify, inklusive Planung, Datenübernahme und Template-Anpassung",
+      "Aufbau und Implementierung von Prozessautomatisierungen mit n8n",
+    ],
+    tags: ["Plentymarkets", "Amazon Marketplace", "SEO / SEA", "Shop-Migration", "Shopify", "n8n Automation", "ERP-Integration", "Adference"],
+  },
+  {
+    icon: <Rocket size={20} className="text-[#cda967]" />,
     logo: "/Media/doppio coffee roastery logo.png",
     company: "Shopware → Shopify Migration | Aydin Roasting GmbH (DOPPIO)",
-    period: "März 2024 – heute",
+    period: "März 2024 – Mai 2024",
     description: [
       "Technische Shopmigration & Custom-Code-Anpassungen",
       "Beratung zu Warenwirtschaft, App-Auswahl & Datenstruktur",
@@ -127,7 +127,7 @@ const Experience = () => {
   const { isDarkMode } = useDarkMode();
   const [expandedProjects, setExpandedProjects] = useState<{ [key: number]: boolean }>({});
   const [expandedWork, setExpandedWork] = useState<{ [key: number]: boolean }>({});
-  
+
   const toggleProject = (index: number) => {
     setExpandedProjects(prev => ({
       ...prev,
@@ -141,11 +141,11 @@ const Experience = () => {
       [index]: !prev[index]
     }));
   };
-  
+
   return (
-    <section className={`py-20 px-4 transition-colors duration-300`} style={{ 
+    <section className={`py-20 px-4 transition-colors duration-300`} style={{
       backgroundColor: 'var(--section-bg-primary)',
-      color: isDarkMode ? '#ededed' : '#1A1A1A' 
+      color: isDarkMode ? '#ededed' : '#1A1A1A'
     }} id="experience">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-2 tracking-tight">Projektauszug & Erfahrung</h2>
@@ -167,12 +167,12 @@ const Experience = () => {
                   {Array.isArray(exp.logo) && (
                     <span className="flex flex-row items-center gap-2 mb-1">
                       {exp.logo.map((src, idx) => (
-                        <img key={idx} src={src} alt="Logo" className={`h-5 w-auto ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain'}} />
+                        <img key={idx} src={src} alt="Logo" className={`h-5 w-auto ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{ height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain' }} />
                       ))}
                     </span>
                   )}
                   {!Array.isArray(exp.logo) && exp.logo && (
-                    <img src={exp.logo} alt="Logo" className={`h-6 w-auto mb-1 ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain'}} />
+                    <img src={exp.logo} alt="Logo" className={`h-6 w-auto mb-1 ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{ height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain' }} />
                   )}
                   {exp.role && <span className={`font-bold text-lg mb-0.5 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>{exp.role}</span>}
                   <span className={`text-base font-normal block w-full ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{exp.company}</span>
@@ -226,12 +226,12 @@ const Experience = () => {
                   {Array.isArray(exp.logo) && (
                     <span className="flex flex-row items-center gap-2 mb-1">
                       {exp.logo.map((src, idx) => (
-                        <img key={idx} src={src} alt="Logo" className={`h-5 w-auto ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain'}} />
+                        <img key={idx} src={src} alt="Logo" className={`h-5 w-auto ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{ height: 20, maxHeight: 20, minHeight: 20, width: 'auto', objectFit: 'contain' }} />
                       ))}
                     </span>
                   )}
                   {!Array.isArray(exp.logo) && exp.logo && (
-                    <img src={exp.logo} alt="Logo" className={`h-6 w-auto mb-1 ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain'}} />
+                    <img src={exp.logo} alt="Logo" className={`h-6 w-auto mb-1 ${isDarkMode ? 'bg-white p-1 rounded' : ''}`} style={{ height: 24, maxHeight: 24, minHeight: 24, width: 'auto', objectFit: 'contain' }} />
                   )}
                   {exp.role && <span className={`font-bold text-lg mb-0.5 ${isDarkMode ? 'text-[#ededed]' : 'text-[#1A1A1A]'}`}>{exp.role}</span>}
                   <span className={`text-base font-normal block w-full ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{exp.company}</span>
